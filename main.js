@@ -19,7 +19,7 @@ function createWindow () {
   });
 
   // Disable the menu bar
-  //mainWindow.setMenu(null);
+  mainWindow.setMenu(null);
 
   mainWindow.on('closed', function () {
     mainWindow = null
