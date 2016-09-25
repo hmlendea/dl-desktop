@@ -45,6 +45,12 @@ const template = [
     label: 'App',
     submenu: [
       {
+        label: 'Developer tools',
+        click (item, focusedWindow) {
+          mainWindow.toggleDevTools();
+        }
+      },
+      {
         label: 'Exit',
         click (item, focusedWindow) {
           app.quit();
