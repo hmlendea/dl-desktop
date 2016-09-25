@@ -1,0 +1,243 @@
+#app {
+    background-color: #13191C !important;
+}
+
+.topbar, .topbar-blue {
+    background: #1A2C34 !important;
+    background-color: #1A2C34 !important;
+}
+
+.dropdown-menu,
+.popover,
+.hint-popover .inner, .hint-popover .inner:before, .hint-popover .inner:after,
+.modal {
+    background-color: #172126;
+    border-color: #172126;
+}
+
+.dropdown-menu>li>a,
+.popover>ul>li,
+.modal {
+    color: #B7BABC;
+}
+
+.page-main, .box-colored,
+.player-container,
+.slide-in {
+    background-color: #172126 !important;
+}
+
+.box-gray {
+    background-color: #13191C;
+    border-color: #172126;
+}
+
+.bonus-row,
+.player-footer,
+.session-end-footer {
+    background-color: #1A2C34 !important;
+    border-color: #293A42 !important;
+}
+
+h1, h2, h4, h5,
+.skill-badge-name,
+.gray-dark,
+.profile-header-username,
+.profile-header-subline,
+.sidebar-stats>li>strong,
+.label, label,
+th, tr, td,
+li, li>div,
+.list-leaderboard-item.you .points,
+.player-quit,
+bdi {
+    color: #B7BABC !important;
+}
+
+.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-last-child(1):nth-child(odd)>td {
+    background-color: #1A2C34;
+    border-color: #1A2C34;
+}
+
+.table-striped>tbody>tr:nth-child(even)>td {
+    border-color: #1A2C34;
+}
+
+.stream-item-content {
+    color: #999999;
+}
+
+.btn-standard,
+.btn-block,
+.btn-outline,
+.white-label{
+    background-color: #1A2C34;
+    border-color: #293A42 !important;
+}
+
+.btn,
+.btn-standard,
+.btn-block {
+    color: #B7BABC;
+}
+.btn-yellow {
+    color: #13191C;
+}
+
+.btn-primary,
+.btn-blue,
+.btn-green {
+    color: #F8F8F8;
+}
+
+.btn-standard:hover,
+.btn-block:hover,
+.btn-outline:hover,
+.white-label:hover {
+    background-color: #1F343D !important;
+    border-color: #30434D !important;
+}
+
+.btn.disabled,
+.btn[disabled] {
+    background-color: #202A2E !important;
+    border-color: #1A2C34 !important;
+    color: #525252;
+}
+
+.fake-input {
+    background-color: #202A2E !important;
+    border-color: #1A2C34 !important;
+    color: #525252;
+}
+
+.btn:hover,
+.btn-blue:hover,
+.btn-green:hover,
+.btn-standard:hover {
+    color: #FFFFFF !important;
+}
+
+input, select > option {
+    background-color: #1A2C34 !important;
+    border-color: #293A42 !important;
+    color: #B7BABC !important;
+}
+
+.skill-icon.locked {
+	background-color: #293A42 !important;
+}
+
+.stream-item {
+    border-color: #293A42;
+}
+
+.stream-item:first-child:before {
+    background: #293A42 !important;
+}
+
+.stream-item-type.default {
+    background: #1A2C34;
+    border-color: #30434D;
+}
+
+.sticky-discussion-message {
+    background-color: #1493D1;
+    color: #FFFFFF;
+}
+
+.vote-count {
+    background-color: #13191C !important;
+    color: #B7BABC !important;
+}
+
+.search-box {
+    background-color: #1A2C34 !important;
+    border-color: #293A42 !important;
+    color: #B7BABC !important;
+}
+
+.divider,
+.nav-tabs,
+.list-discussion-item,
+.list-document-item,
+.player-header,
+.hint-table table tr td, .hint-footer,
+.progress-xp .col-left {
+	border-color: #293A42 !important;
+}
+
+.level-next {
+    color: #13191C !important;
+}
+
+.document-progress-bar {
+    background-color: #1A2C34 !important;
+    border-color: #293A42 !important;
+    color: #B7BABC !important;
+}
+
+.document-progress-bar:after {
+    border-color: #172126 !important;
+}
+
+.document-progress-bar>.bar-starred {
+    background-color: #1A2C34 !important;
+    border-color: #293A42 !important;
+    color: #B7BABC !important;
+}
+
+.list-leaderboard::-webkit-scrollbar-thumb {
+    background: #1D3A49;
+}
+
+.speech-bubble .inner,
+.speech-bubble .arrow {
+    background: #1A2C34 !important;
+}
+
+.progress-bar-distinct>li,
+.progress-bar-dynamic.strength-bar,
+.progress-bar-dynamic .skill-icon-container .skill-icon.locked,
+.progress-bar-dynamic .skill-icon-container .challenge-number-container .challenge-num-backing,
+.progress-bar-dynamic .backing {
+    background: #1A2C34 !important;
+	border-color: #293A42 !important;
+}
+
+.text-to-translate,
+.textarea-block {
+    background: #1A2C34 !important;
+    color: #B7BABC !important;
+	border-color: #293A42 !important;
+}
+
+.badge-correct-big,
+.badge-wrong-big,
+.player-footer h2,
+#vkeyboard_content .vkeyboard_key {
+    background: #1D3A49;
+    color: #B7BABC;
+}
+
+.carousel-dot.active {
+    border-color: #1D3A49;
+}
+
+.player-footer h2 {
+    color: #B7BABC !important;
+}
+
+.speaker-slow {
+    border-color: #172126;
+}
+
+.progress-bar-dynamic.strength-bar .bar .bubbles,
+.progress-bar-dynamic.strength-bar .bar:after {
+    display: none !important;
+}
+
+.popover-blue {
+    background-color: #1CAFF6 !important;
+}
