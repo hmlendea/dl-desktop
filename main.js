@@ -8,7 +8,7 @@ let mainWindow
 let webContents
 
 function createWindow () {
-  mainWindow = new BrowserWindow({width: 1280, height: 800, title: 'Duolingo', icon: 'duolingo'})
+  mainWindow = new BrowserWindow({width: 1280, height: 800, title: 'Duolingo', icon: 'duolingo.png'})
   webContents = mainWindow.webContents
 
   mainWindow.loadURL(`file://${__dirname}/index.html`)
