@@ -1,0 +1,388 @@
+#app, .welcome {
+    background: #13191C !important;
+    background-color: #13191C !important;
+}
+
+.topbar, .topbar-blue {
+    background: #1A2C34 !important;
+    background-color: #1A2C34 !important;
+}
+
+.dropdown-menu,
+.popover,
+.hint-popover .inner, .hint-popover .inner:before, .hint-popover .inner:after,
+.modal {
+    background-color: #172126 !important;
+    border-color: #172126 !important;
+}
+
+.dropdown-menu.arrow-top:after {
+    border-bottom: 10px solid #172126 !important;
+}
+
+.dropdown-menu>li>a,
+.popover>ul>li,
+.modal {
+    color: #B7BABC !important;
+}
+
+.page-main, .box-colored,
+.player-container,
+.slide-in,
+.duo-info, .mobile {
+    background-color: #172126 !important;
+}
+
+.box-gray {
+    background-color: #13191C !important;
+    border-color: #172126 !important;
+}
+
+.bonus-row,
+.player-footer,
+#modal-footer,
+.session-end-footer,
+.website, .schools {
+    background-color: #1A2C34 !important;
+    border-color: #293A42 !important;
+}
+
+h1, h2, h4, h5,
+.skill-badge-name,
+.gray-dark,
+.profile-header-username,
+.profile-header-subline,
+.sidebar-stats>li>strong,
+.label, label,
+th, tr, td,
+li, li>div,
+.list-leaderboard-item.you .points,
+.player-quit,
+bdi,
+.daily-goal-header,
+form > p {
+    color: #B7BABC !important;
+}
+
+.store-headline {
+    color: #F8F8F8 !important;
+}
+
+a:hover {
+    color: #1CAFF6 !important;
+}
+
+.btn:hover,
+.btn-blue:hover,
+.btn-green:hover,
+.btn-standard:hover,
+.dropdown-menu > li > a:hover,
+.topbar-nav-main>li a {
+	color: #FFFFFF !important;
+}
+
+.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-last-child(1):nth-child(odd)>td {
+    background-color: #1A2C34 !important;
+    border-color: #1A2C34 !important;
+}
+
+.table-striped>tbody>tr:nth-child(even)>td {
+    border-color: #1A2C34 !important;
+}
+
+.stream-item-content {
+    color: #999999 !important;
+}
+
+.btn-standard,
+.btn-block,
+.btn-outline,
+.btn-white,
+.white-label,
+.more {
+    background-color: #1A2C34 !important;
+    border-color: #293A42 !important;
+    color: #B7BABC !important;
+}
+
+.btn-standard:hover,
+.btn-block:hover,
+.btn-outline:hover,
+.btn-white:hover,
+.white-label:hover,
+.more:hover {
+    background-color: #1F343D !important;
+    border-color: #30434D !important;
+}
+
+.btn-primary {
+    color: #F8F8F8 !important;
+}
+
+.btn,
+.btn-standard,
+.btn-block {
+    color: #B7BABC !important;
+}
+
+.btn-blue,
+.btn-green,
+.btn-green .success,
+.success,
+.btn-red,
+.btn-fbblue {
+    color: #F8F8F8 !important;
+}
+
+.btn-blue:hover,
+.btn-green:hover,
+.btn-green .success:hover,
+.success:hover,
+.btn-red:hover,
+.btn-fbblue:hover {
+    color: #FFFFFF !important;
+}
+
+.btn-yellow {
+    color: #13191C !important;
+}
+
+.btn.disabled,
+.btn[disabled] {
+    background-color: #202A2E !important;
+    border-color: #1A2C34 !important;
+    color: #525252;
+}
+
+.btn-twitter:hover {
+    background-color: #1CAFF6 !important;
+    border-color: #1CAFF6 !important;
+}
+
+.btn-fb:hover {
+    background-color: #3B579D !important;
+    border-color: #3B579D !important;
+}
+
+.btn-google:hover {
+    background-color: #DB4633 !important;
+    border-color: #DB4633 !important;
+}
+
+.btn-red {
+    background-color: #DD381D !important;
+    border-color: #DD381D !important;
+}
+
+.btn-red:hover {
+    background-color: #F22A00 !important;
+    border-color: #F22A00 !important;
+}
+
+.btn-fbblue {
+    background-color: #2275d1 !important;
+    border-color: #2275d1 !important;
+}
+
+.btn-fbblue-dark {
+    background-color: #3B579D !important;
+    border-color: #3B579D !important;
+}
+
+.btn-fbblue:hover {
+    background-color: #2275D1 !important;
+    border-color: #2275D1 !important;
+}
+
+.btn-fbblue-dark:hover {
+    background-color: #4D6AB0 !important;
+    border-color: #4D6AB0 !important;
+}
+
+.fake-input {
+    background-color: #202A2E !important;
+    border-color: #1A2C34 !important;
+    color: #525252 !important;
+}
+
+.text-to-translate,
+.textarea-block,
+.select-images > li,
+input, select > option,
+.form-table, .form-table > tbody > tr,
+.form-table, .form-table > tbody > tr > td {
+    background-color: #1A2C34 !important;
+    border-color: #293A42 !important;
+    color: #B7BABC !important;
+}
+
+.skill-icon.locked {
+	background-color: #293A42 !important;
+}
+
+.icon-comment-medium {
+    color: #13191C !important;
+}
+
+.stream-item {
+    border-color: #293A42 !important;
+}
+
+.stream-item:first-child:before {
+    background: #293A42 !important;
+}
+
+.stream-item-type.default {
+    background: #1A2C34 !important;
+    border-color: #30434D !important;
+}
+
+.sticky-discussion-message {
+    background-color: #1493D1 !important;
+    color: #FFFFFF !important;
+}
+
+.vote-count {
+    background-color: #13191C !important;
+    color: #B7BABC !important;
+}
+
+.vote-count.active-upvoted {
+    background-color: #7EB530 !important;
+    color: #FFFFFF !important;
+}
+
+.vote-count.active-downvoted {
+    background-color: #DD381D !important;
+    color: #FFFFFF !important;
+}
+
+.search-box {
+    background-color: #1A2C34 !important;
+    border-color: #293A42 !important;
+    color: #B7BABC !important;
+}
+
+.divider,
+.nav-tabs,
+.list-discussion-item,
+.list-document-item,
+.player-header,
+.hint-table table tr td, .hint-footer,
+.progress-xp .col-left,
+.strengthen-skills-container,
+.document-info,
+.translator-stats,
+.sidebar-progress {
+	border-color: #293A42 !important;
+}
+
+.level-next {
+    color: #13191C !important;
+}
+
+.document-progress-bar {
+    background-color: #1A2C34 !important;
+    border-color: #293A42 !important;
+    color: #B7BABC !important;
+}
+
+.document-progress-bar:after {
+    border-color: #172126 !important;
+}
+
+.document-progress-bar>.bar-starred {
+    background-color: #1A2C34 !important;
+    border-color: #293A42 !important;
+    color: #B7BABC !important;
+}
+
+.list-leaderboard::-webkit-scrollbar-thumb {
+    background: #1D3A49 !important;
+}
+
+.speech-bubble .inner,
+.speech-bubble .arrow {
+    background: #1A2C34 !important;
+}
+
+.progress-bar-distinct>li,
+.progress-bar-dynamic.simplified-bar,
+.progress-bar-dynamic.strength-bar,
+.progress-bar-dynamic .skill-icon-container .skill-icon.locked,
+.progress-bar-dynamic .skill-icon-container .challenge-number-container .challenge-num-backing,
+.progress-bar-dynamic .backing {
+    background: #1A2C34 !important;
+	border-color: #293A42 !important;
+}
+
+.badge-correct-big,
+.badge-wrong-big,
+.player-footer h2,
+#vkeyboard_content .vkeyboard_key {
+    background: #1D3A49 !important;
+    color: #B7BABC !important;
+}
+
+.carousel-dot.active {
+    border-color: #1D3A49 !important;
+}
+
+.player-footer h2 {
+    color: #B7BABC !important;
+}
+
+.speaker-slow {
+    border-color: #172126 !important;
+}
+
+.progress-bar-dynamic.strength-bar .bar .bubbles,
+.progress-bar-dynamic.strength-bar .bar:after {
+    display: none !important;
+}
+
+.popover-blue {
+    background-color: #1CAFF6 !important;
+}
+
+.language-choice.active>a {
+    background-color: #1D3A49 !important;
+}
+
+.language-choice.active>a:hover {
+    background-color: #1CAFF6 !important;
+}
+
+.translator-tier-flag .double-flag-target {
+    border-color: #293A42 !important;
+}
+
+.icon-twitter-small {
+    background-position: -355px -70px !important;
+}
+
+.icon-fb-small {
+    background-position: -346px -70px !important;
+}
+
+.skill-icon-placeholder {
+	border-color: #999999 !important;
+	background: rgba(255,255,255,0.035) !important;
+}
+
+.skill-icon-placeholder:hover {
+	background: rgba(255,255,255,0.1) !important;
+}
+
+.leave-store {
+    background-color: rgba(0,0,0,0) !important;
+    border-color: #F8F8F8 !important;
+    color: #F8F8F8 !important;
+}
+
+.leave-store:hover {
+	background: rgba(255,255,255,0.15) !important;
+    border-color: #FFFFFF !important;
+    color: #FFFFFF !important;
+}
