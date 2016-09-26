@@ -1,6 +1,6 @@
 {
   "name": "duolingo-desktop",
-  "productName": "Duolingo2",
+  "productName": "Duolingo",
   "version": "1.0.0",
   "description": "A desktop client for Duolingo",
   "main": "scripts/init.js",
@@ -17,7 +17,8 @@
   "keywords": [
     "Duolingo"
   ],
-  "author": "Horațiu Mlendea",
+  "author": "Horatiu Mlendea <Mlendea.Horatiu@GMail.com>",
+  "authorName": "Horatiu Mlendea",
   "linux": {
     "genericName": "Duolingo",
     "categories": "Education;",
