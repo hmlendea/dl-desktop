@@ -16,7 +16,7 @@ function createWindow () {
     width: 1280, height: 800,
     title: global.manifest.productName,
     icon: file_paths.getImagePath('duolingo')})
-  
+
   webContents = mainWindow.webContents
 
   mainWindow.loadURL(file_paths.getPagePath('index'))
