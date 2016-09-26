@@ -1,5 +1,6 @@
 {
   "name": "duolingo-desktop",
+  "productName": "Duolingo2",
   "version": "1.0.0",
   "description": "A desktop client for Duolingo",
   "main": "scripts/init.js",
