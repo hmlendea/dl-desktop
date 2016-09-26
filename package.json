@@ -2,7 +2,10 @@
   "name": "duolingo-desktop",
   "version": "1.0.0",
   "description": "A desktop client for Duolingo",
-  "main": "main.js",
+  "main": "scripts/init.js",
+  "dependencies": {
+    "app-module-path": "1.1.0"
+  },
   "scripts": {
     "start": "electron ."
   },
