@@ -1,12 +1,12 @@
-const electron = require('electron')
-const BrowserWindow = electron.BrowserWindow
-const Menu = electron.Menu
+const electron = require('electron');
+const BrowserWindow = electron.BrowserWindow;
+const Menu = electron.Menu;
 const shell = electron.shell;
-const app = electron.app
+const app = electron.app;
 const file_paths = require('file_paths');
 
-let mainWindow
-let webContents
+let mainWindow;
+let webContents;
 
 /**
  * creates the main window of the app
@@ -17,7 +17,7 @@ function createWindow () {
     title: global.manifest.productName,
     icon: file_paths.getImagePath('duolingo')})
 
-  webContents = mainWindow.webContents
+  webContents = mainWindow.webContents;
 
   mainWindow.loadURL(file_paths.getPagePath('index'))
 
@@ -31,45 +31,40 @@ function createWindow () {
 
   // mainWindow events
   mainWindow.on('closed', function () {
-    mainWindow = null
-  })
+    mainWindow = null;
+  });
 }
 
 // application events
-app.on('ready', createWindow)
+app.on('ready', createWindow);
 
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') {
-    app.quit()
+    app.quit();
   }
-})
+});
 
 app.on('activate', function () {
   if (mainWindow === null) {
-    createWindow()
+    createWindow();
   }
-})
+});
 
 // menu bar
-const template = [
-  {
-    label: 'App',
-    submenu: [
-      {
-        label: 'Developer tools',
-        click (item, focusedWindow) {
-          mainWindow.toggleDevTools();
-        }
-      },
-      {
-        label: 'Exit',
-        click (item, focusedWindow) {
-          app.quit();
-        }
+const template = [{
+  label: 'App',
+  submenu: [{
+    label: 'Developer tools',
+    click(item, focusedWindow) {
+      mainWindow.toggleDevTools();
+    }
+    }, {
+      label: 'Exit',
+      click(item, focusedWindow) {
+        app.quit();
       }
-    ]
-  }
-]
+    }]
+}];
 
-const menu = Menu.buildFromTemplate(template)
-Menu.setApplicationMenu(menu)
+const menu = Menu.buildFromTemplate(template);
+Menu.setApplicationMenu(menu);
