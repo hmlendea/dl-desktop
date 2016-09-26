@@ -12,7 +12,11 @@ let webContents
  * creates the main window of the app
  */
 function createWindow () {
-  mainWindow = new BrowserWindow({width: 1280, height: 800, title: 'Duolingo', icon: file_paths.getImagePath('duolingo')})
+  mainWindow = new BrowserWindow({
+    width: 1280, height: 800,
+    title: global.manifest.productName,
+    icon: file_paths.getImagePath('duolingo')})
+  
   webContents = mainWindow.webContents
 
   mainWindow.loadURL(file_paths.getPagePath('index'))
