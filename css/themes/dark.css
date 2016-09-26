@@ -1,4 +1,5 @@
-#app {
+#app, .welcome {
+    background: #13191C !important;
     background-color: #13191C !important;
 }
 
@@ -27,7 +28,8 @@
 
 .page-main, .box-colored,
 .player-container,
-.slide-in {
+.slide-in,
+.duo-info, .mobile {
     background-color: #172126 !important;
 }
 
@@ -38,7 +40,9 @@
 
 .bonus-row,
 .player-footer,
-.session-end-footer {
+#modal-footer,
+.session-end-footer,
+.website, .schools {
     background-color: #1A2C34 !important;
     border-color: #293A42 !important;
 }
@@ -54,8 +58,14 @@ th, tr, td,
 li, li>div,
 .list-leaderboard-item.you .points,
 .player-quit,
-bdi {
+bdi,
+.daily-goal-header,
+form > p {
     color: #B7BABC !important;
+}
+
+.store-headline {
+    color: #F8F8F8 !important;
 }
 
 a:hover {
@@ -88,9 +98,22 @@ a:hover {
 .btn-standard,
 .btn-block,
 .btn-outline,
-.white-label{
+.btn-white,
+.white-label,
+.more {
     background-color: #1A2C34 !important;
     border-color: #293A42 !important;
+    color: #B7BABC !important;
+}
+
+.btn-standard:hover,
+.btn-block:hover,
+.btn-outline:hover,
+.btn-white:hover,
+.white-label:hover,
+.more:hover {
+    background-color: #1F343D !important;
+    border-color: #30434D !important;
 }
 
 .btn-primary {
@@ -104,8 +127,21 @@ a:hover {
 }
 
 .btn-blue,
-.btn-green {
+.btn-green,
+.btn-green .success,
+.success,
+.btn-red,
+.btn-fbblue {
     color: #F8F8F8 !important;
+}
+
+.btn-blue:hover,
+.btn-green:hover,
+.btn-green .success:hover,
+.success:hover,
+.btn-red:hover,
+.btn-fbblue:hover {
+    color: #FFFFFF !important;
 }
 
 .btn-yellow {
@@ -117,14 +153,6 @@ a:hover {
     background-color: #202A2E !important;
     border-color: #1A2C34 !important;
     color: #525252;
-}
-
-.btn-standard:hover,
-.btn-block:hover,
-.btn-outline:hover,
-.white-label:hover {
-    background-color: #1F343D !important;
-    border-color: #30434D !important;
 }
 
 .btn-twitter:hover {
@@ -142,13 +170,48 @@ a:hover {
     border-color: #DB4633 !important;
 }
 
+.btn-red {
+    background-color: #DD381D !important;
+    border-color: #DD381D !important;
+}
+
+.btn-red:hover {
+    background-color: #F22A00 !important;
+    border-color: #F22A00 !important;
+}
+
+.btn-fbblue {
+    background-color: #2275d1 !important;
+    border-color: #2275d1 !important;
+}
+
+.btn-fbblue-dark {
+    background-color: #3B579D !important;
+    border-color: #3B579D !important;
+}
+
+.btn-fbblue:hover {
+    background-color: #2275D1 !important;
+    border-color: #2275D1 !important;
+}
+
+.btn-fbblue-dark:hover {
+    background-color: #4D6AB0 !important;
+    border-color: #4D6AB0 !important;
+}
+
 .fake-input {
     background-color: #202A2E !important;
     border-color: #1A2C34 !important;
     color: #525252 !important;
 }
 
-input, select > option {
+.text-to-translate,
+.textarea-block,
+.select-images > li,
+input, select > option,
+.form-table, .form-table > tbody > tr,
+.form-table, .form-table > tbody > tr > td {
     background-color: #1A2C34 !important;
     border-color: #293A42 !important;
     color: #B7BABC !important;
@@ -245,18 +308,12 @@ input, select > option {
 }
 
 .progress-bar-distinct>li,
+.progress-bar-dynamic.simplified-bar,
 .progress-bar-dynamic.strength-bar,
 .progress-bar-dynamic .skill-icon-container .skill-icon.locked,
 .progress-bar-dynamic .skill-icon-container .challenge-number-container .challenge-num-backing,
 .progress-bar-dynamic .backing {
     background: #1A2C34 !important;
-	border-color: #293A42 !important;
-}
-
-.text-to-translate,
-.textarea-block {
-    background: #1A2C34 !important;
-    color: #B7BABC !important;
 	border-color: #293A42 !important;
 }
 
@@ -299,4 +356,33 @@ input, select > option {
 
 .translator-tier-flag .double-flag-target {
     border-color: #293A42 !important;
+}
+
+.icon-twitter-small {
+    background-position: -355px -70px !important;
+}
+
+.icon-fb-small {
+    background-position: -346px -70px !important;
+}
+
+.skill-icon-placeholder {
+	border-color: #999999 !important;
+	background: rgba(255,255,255,0.035) !important;
+}
+
+.skill-icon-placeholder:hover {
+	background: rgba(255,255,255,0.1) !important;
+}
+
+.leave-store {
+    background-color: rgba(0,0,0,0) !important;
+    border-color: #F8F8F8 !important;
+    color: #F8F8F8 !important;
+}
+
+.leave-store:hover {
+	background: rgba(255,255,255,0.15) !important;
+    border-color: #FFFFFF !important;
+    color: #FFFFFF !important;
 }
