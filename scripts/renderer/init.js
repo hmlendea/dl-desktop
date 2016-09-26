@@ -5,7 +5,7 @@ const path = require('path');
 const appPath = app.getAppPath();
 const scriptsPath = path.join(appPath, 'scripts');
 
-const manifest = require('../package.json');
+const manifest = require(path.join(appPath, 'package.json'));
 global.manifest = manifest;
 
 appModulePath.addPath(scriptsPath);
