@@ -7,4 +7,3 @@ const scriptsPath = path.join(appPath, 'scripts');
 
 appModulePath.addPath(scriptsPath);
 require('main');
-

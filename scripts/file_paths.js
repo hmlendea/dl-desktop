@@ -1,7 +1,7 @@
 const app = require('app')
 const path = require('path');
 
-const appPath = require('app').getAppPath();
+const appPath = app.getAppPath();
 
 /**
  * @return the page's html path
