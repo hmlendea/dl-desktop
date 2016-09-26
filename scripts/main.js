@@ -8,25 +8,30 @@ const file_paths = require('file_paths');
 let mainWindow
 let webContents
 
+/**
+ * creates the main window of the app
+ */
 function createWindow () {
-  mainWindow = new BrowserWindow({width: 1280, height: 800, title: 'Duolingo', icon: file_paths.getImagePath("duolingo")})
+  mainWindow = new BrowserWindow({width: 1280, height: 800, title: 'Duolingo', icon: file_paths.getImagePath('duolingo')})
   webContents = mainWindow.webContents
 
-  mainWindow.loadURL(file_paths.getPagePath("index"))
+  mainWindow.loadURL(file_paths.getPagePath('index'))
 
   webContents.on('new-window', function(event, url){
     event.preventDefault();
     shell.openExternal(url);
   });
 
-  // Disable the menu bar
+  // disable the menu bar
   mainWindow.setMenu(null);
 
+  // mainWindow events
   mainWindow.on('closed', function () {
     mainWindow = null
   })
 }
 
+// application events
 app.on('ready', createWindow)
 
 app.on('window-all-closed', function () {
@@ -41,6 +46,7 @@ app.on('activate', function () {
   }
 })
 
+// menu bar
 const template = [
   {
     label: 'App',
