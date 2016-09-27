@@ -1,4 +1,4 @@
-#app, .welcome {
+#app, .welcome, .ltr, #document-hider {
     background: #13191C !important;
     background-color: #13191C !important;
 }
@@ -33,34 +33,44 @@
     background-color: #172126 !important;
 }
 
-.box-gray {
+.box-gray,
+.instructions,
+.course-card.course-profile-badge {
+    background: #13191C !important;
     background-color: #13191C !important;
     border-color: #172126 !important;
+}
+
+.instructions {
+    border-color: #293A42 !important;
 }
 
 .bonus-row,
 .player-footer,
 #modal-footer,
+.document-header-new,
 .session-end-footer,
-.website, .schools {
+.website, .schools,
+.infobox, .thumbinner,
+.locked-discussion-message {
     background-color: #1A2C34 !important;
     border-color: #293A42 !important;
 }
 
 h1, h2, h4, h5,
 .skill-badge-name,
-.gray-dark,
-.profile-header-username,
-.profile-header-subline,
+.gray-dark, .legend-text,
+.profile-header-username, .profile-header-subline,
 .sidebar-stats>li>strong,
 .label, label,
-th, tr, td,
-li, li>div,
-.list-leaderboard-item.you .points,
+th, tr, td, li, li>div,
+.list-leaderboard-item.you .points, .reputation-tier,
 .player-quit,
-bdi,
+bdi, form > p,
 .daily-goal-header,
-form > p {
+.cur-translation,
+.translation-footer,
+.love-number {
     color: #B7BABC !important;
 }
 
@@ -274,7 +284,8 @@ input, select > option,
 .strengthen-skills-container,
 .document-info,
 .translator-stats,
-.sidebar-progress {
+.sidebar-progress,
+.discussion-comments-list-item, .discussion-header {
 	border-color: #293A42 !important;
 }
 
@@ -385,4 +396,17 @@ input, select > option,
 	background: rgba(255,255,255,0.15) !important;
     border-color: #FFFFFF !important;
     color: #FFFFFF !important;
+}
+
+.legend-circle {
+    background-color: #172126 !important;
+    border-color: #293A42 !important;
+}
+
+.needs-checking {
+    color: #999999 !important;
+}
+
+.checked-by-community, .high-quality {
+    color: #F8F8F8 !important;
 }
