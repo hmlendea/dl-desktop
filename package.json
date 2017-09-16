@@ -12,13 +12,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HoratiuMl/DuolingoDesktopClient.git"
+    "url": "git+https://github.com/hmlendea/duolingo-desktop.git"
   },
   "keywords": [
     "Duolingo"
   ],
-  "author": "Horatiu Mlendea <Mlendea.Horatiu@GMail.com>",
-  "authorName": "Horatiu Mlendea",
+  "author": "Horațiu Mlendea <Mlendea.Horatiu@GMail.com>",
+  "authorName": "Horațiu Mlendea",
   "linux": {
     "genericName": "Duolingo",
     "categories": "Education;",
@@ -26,9 +26,9 @@
   },
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/electron/HoratiuMl/DuolingoDesktopClient"
+    "url": "https://github.com/electron/hmlendea/duolingo-desktop"
   },
-  "homepage": "https://github.com/electron/HoratiuMl/DuolingoDesktopClient#readme",
+  "homepage": "https://github.com/electron/hmlendea/duolingo-desktop#readme",
   "devDependencies": {
     "electron": "^1.3.4"
   }
