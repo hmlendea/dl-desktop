@@ -4,6 +4,8 @@ const Menu = electron.Menu;
 const shell = electron.shell;
 const app = electron.app;
 const file_paths = require('file_paths');
+const path = require('path');
+const url = require('url');
 
 let mainWindow;
 let webContents;
@@ -19,7 +21,11 @@ function createWindow () {
 
   webContents = mainWindow.webContents;
 
-  mainWindow.loadURL(file_paths.getPagePath('index'))
+  mainWindow.loadURL(url.format({
+    pathname: file_paths.getPagePath('index'),
+    protocol: 'file:',
+    slashes: true
+  }))
 
   webContents.on('new-window', function(event, url){
     event.preventDefault();
