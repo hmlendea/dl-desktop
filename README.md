@@ -1,21 +1,31 @@
-# Duolingo Desktop
-Desktop client for Duolingo, using the Electron framework
+# About
+This is a cross-platform desktop client for Duolingo.
 
-# Current features
+# Features
+## Current
 - Running the Duolingo webapp as a **desktop client**
 - **Dark theme** for reduced eye strain when using this app for longer periods of time, or at night
 
-# Planned features
+## Planned
 - Menu bar integration of common actions
 - Ability to change themes
 - Native desktop notifications
 
-# Build & Run
+# Usage
+## Requirements
+Install both ```npm``` and ```electron```, if you haven't already.
 
-Firstly, make sure you ```cd``` to the application's directory.
+Make sure they are added to your PATH environment variable.
+This is usually done automatically upon installation on Linux and Mac, but has to be done manually on Windows.
 
-- To retrieve the necessary NodeJS dependencies, run
+## Installation
+Run the following command in the application directory:
 ```sh
 npm install
 ```
-- To run the application, run ```electron .``` or ```npm run```
+
+## Running
+Run the following command in the application directory:
+```sh
+electron .
+```
