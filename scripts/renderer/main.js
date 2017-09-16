@@ -1,3 +1,4 @@
 const themer = require('renderer/themer');
 
-themer.applyTheme('dark');
+// TODO: Fix the theme and add an option to use it
+//themer.applyTheme('dark');
