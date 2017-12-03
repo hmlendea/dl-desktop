@@ -8,7 +8,8 @@
     "app-module-path": "1.1.0"
   },
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-builder"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
   },
   "homepage": "https://github.com/electron/hmlendea/duolingo-desktop#readme",
   "devDependencies": {
-    "electron": "^1.3.4"
+    "electron": "^1.3.4",
+    "electron-builder": "^19.47.1"
   }
 }
