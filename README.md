@@ -13,9 +13,9 @@ This is a cross-platform desktop client for Duolingo.
 
 # Usage
 ## Requirements
-Install both ```npm``` and ```electron```, if you haven't already.
+Install ```npm```, if you haven't already.
 
-Make sure they are added to your PATH environment variable.
+Make sure it is added to your PATH environment variable.
 This is usually done automatically upon installation on Linux and Mac, but has to be done manually on Windows.
 
 ## Installation
@@ -23,9 +23,13 @@ Run the following command in the application directory:
 ```sh
 npm install
 ```
-
 ## Running
 Run the following command in the application directory:
 ```sh
-electron .
+npm start
+```
+## Building
+Run the following command in the application directory:
+```sh
+npm run build
 ```
