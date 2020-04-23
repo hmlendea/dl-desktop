@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/hmlendea/duolingo-desktop.svg?branch=master)](https://travis-ci.com/hmlendea/duolingo-desktop)
+
 # About
 This is a cross-platform desktop client for Duolingo.
 
