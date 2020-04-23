@@ -13,8 +13,8 @@ function getPagePath (name) {
 /**
  * @return the images's png path
  */
-function getImagePath (name) {
-  return path.join(appPath, 'images', name + '.png');
+function getIconPath () {
+  return path.join(appPath, 'icon.png');
 }
 
 /**
@@ -26,6 +26,6 @@ function getThemePath (name) {
 
 module.exports = {
     getPagePath,
-    getImagePath,
+    getIconPath,
     getThemePath
 };
