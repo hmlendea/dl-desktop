@@ -4,7 +4,6 @@ const Menu = electron.Menu;
 const shell = electron.shell;
 const app = electron.app;
 const file_paths = require('file_paths');
-const path = require('path');
 const url = require('url');
 
 let mainWindow;
