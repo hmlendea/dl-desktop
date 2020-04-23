@@ -17,7 +17,9 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     width: 1280, height: 800,
     title: global.manifest.productName,
-    icon: file_paths.getImagePath('duolingo')})
+    icon: file_paths.getImagePath('duolingo'),
+    webPreferences: {
+        webviewTag: true }})
 
   webContents = mainWindow.webContents;
 
