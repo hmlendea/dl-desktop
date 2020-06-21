@@ -1,0 +1,8 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Duolingo
+Type=Application
+Exec=/opt/duolingo-desktop/duolingo-desktop
+Icon=duolingo
+StartupWMClass=duolingo
+Categories=Education;
