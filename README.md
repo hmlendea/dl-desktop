@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.com/hmlendea/duolingo-desktop.svg?branch=master)](https://travis-ci.com/hmlendea/duolingo-desktop)
 
+[![Support this on Patreon](https://raw.githubusercontent.com/hmlendea/readme-assets/master/donate_patreon.png)](https://www.patreon.com/hmlendea) [![Donate through PayPal](https://raw.githubusercontent.com/hmlendea/readme-assets/master/donate_paypal.png)](https://www.paypal.com/donate?hosted_button_id=6YVRGJHDGWGKQ)
+
 # About
 This is a cross-platform desktop client for Duolingo.
 
@@ -35,3 +37,5 @@ Run the following command in the application directory:
 ```sh
 npm run build
 ```
+
+[![Support this on Patreon](https://raw.githubusercontent.com/hmlendea/readme-assets/master/donate_patreon.png)](https://www.patreon.com/hmlendea) [![Donate through PayPal](https://raw.githubusercontent.com/hmlendea/readme-assets/master/donate_paypal.png)](https://www.paypal.com/donate?hosted_button_id=6YVRGJHDGWGKQ)
