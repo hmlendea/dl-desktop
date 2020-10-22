@@ -15,7 +15,8 @@
         "zip",
         "AppImage",
         "deb",
-        "apk"
+        "apk",
+        "snap"
       ],
       "category": "Education",
       "artifactName": "${name}_${version}_linux.${ext}"
