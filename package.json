@@ -5,33 +5,35 @@
   "version": "2.0.0",
   "description": "A desktop client for Duolingo",
   "main": "scripts/init.js",
-  "dependencies": {
-    "app-module-path": "2.2.0"
-  },
   "scripts": {
     "start": "electron .",
     "build": "electron-builder"
+  },
+  "build": {
+    "linux": {
+      "target": [
+        "zip",
+        "AppImage",
+        "deb",
+        "apk"
+      ],
+      "category": "Education",
+      "artifactName": "${name}_${version}_linux.${ext}"
+    }
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hmlendea/duolingo-desktop.git"
   },
   "keywords": [
+    "Electron",
     "Duolingo"
   ],
   "author": "Horațiu Mlendea <Mlendea.Horatiu@GMail.com>",
-  "authorName": "Horațiu Mlendea",
-  "build": {
-    "linux": {
-      "target": "zip",
-      "category": "Education"
-    }
-  },
   "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/hmlendea/duolingo-desktop/issues"
+  "dependencies": {
+    "app-module-path": "2.2.0"
   },
-  "homepage": "https://github.com/hmlendea/duolingo-desktop#readme",
   "devDependencies": {
     "electron": "^8.5.2",
     "electron-builder": "^22.5.1"
