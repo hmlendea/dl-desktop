@@ -19,7 +19,10 @@
       ],
       "category": "Education",
       "artifactName": "${name}_${version}_linux.${ext}"
-    }
+    },
+    "extraFiles": [
+      "duolingo-desktop.desktop"
+    ]
   },
   "repository": {
     "type": "git",
