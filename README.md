@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/hmlendea/duolingo-desktop.svg?branch=master)](https://travis-ci.com/hmlendea/duolingo-desktop)
+[![Build Status](https://travis-ci.com/hmlendea/duolingo-desktop.svg?branch=master)](https://travis-ci.com/hmlendea/duolingo-desktop) [![Arch Linux AUR Package](https://img.shields.io/aur/version/duolingo-desktop-git?logo=arch-linux&logoColor=white)](https://aur.archlinux.org/packages/duolingo-desktop-git/)
 
 [![Support this on Patreon](https://raw.githubusercontent.com/hmlendea/readme-assets/master/donate_patreon_small.png)](https://www.patreon.com/hmlendea)[![Support this on Patreon](https://raw.githubusercontent.com/hmlendea/readme-assets/master/donate_paypal_small.png)](https://raw.githubusercontent.com/hmlendea/readme-assets/master/donate_paypal.png)[![Donate with LiberaPay](https://raw.githubusercontent.com/hmlendea/readme-assets/master/donate_liberapay_small.png)](https://liberapay.com/HMlendea/donate)
 
