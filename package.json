@@ -2,7 +2,7 @@
   "name": "duolingo-desktop",
   "appId": "com.electron.${name}",
   "productName": "Duolingo",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "A desktop client for Duolingo",
   "main": "scripts/init.js",
   "scripts": {
@@ -39,7 +39,7 @@
     "app-module-path": "2.2.0"
   },
   "devDependencies": {
-    "electron": "^8.5.2",
-    "electron-builder": "^22.5.1"
+    "electron": "11.0.2",
+    "electron-builder": "22.9.1"
   }
 }
