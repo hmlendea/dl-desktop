@@ -1,9 +1,0 @@
-language: node_js
-node_js: 13
-dist: xenial
-
-install:
-  - npm install
-
-script:
-  - npm run-script build
