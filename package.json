@@ -33,7 +33,7 @@
     "Electron",
     "Duolingo"
   ],
-  "author": "Horațiu Mlendea <Mlendea.Horatiu@GMail.com>",
+  "author": "Horațiu Mlendea <Horatiu.Mlendea@ProtonMail.com>",
   "license": "GPL-3.0",
   "dependencies": {
     "app-module-path": "2.2.0"
