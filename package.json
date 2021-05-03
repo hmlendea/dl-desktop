@@ -2,7 +2,7 @@
   "name": "duolingo-desktop",
   "appId": "com.electron.${name}",
   "productName": "Duolingo",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "A desktop client for Duolingo",
   "main": "scripts/init.js",
   "scripts": {
@@ -33,13 +33,13 @@
     "Electron",
     "Duolingo"
   ],
-  "author": "Horațiu Mlendea <Mlendea.Horatiu@GMail.com>",
+  "author": "Horațiu Mlendea <Horatiu.Mlendea@ProtonMail.com>",
   "license": "GPL-3.0",
   "dependencies": {
     "app-module-path": "2.2.0"
   },
   "devDependencies": {
-    "electron": "11.1.0",
-    "electron-builder": "22.9.1"
+    "electron": "12.0.5",
+    "electron-builder": "22.10.5"
   }
 }
