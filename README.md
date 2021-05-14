@@ -1,4 +1,4 @@
-[![Donate](https://img.shields.io/badge/-%E2%99%A5%20Donate-%23ff69b4)](https://hmlendea.go.ro/fund.html) [![Build Status](https://github.com/hmlendea/duolingo-desktop/actions/workflows/node.js.yml/badge.svg)](https://github.com/hmlendea/duolingo-desktop/actions/workflows/node.js.yml) [![Arch Linux AUR Package](https://img.shields.io/aur/version/duolingo-desktop-git?logo=arch-linux&logoColor=white)](https://aur.archlinux.org/packages/duolingo-desktop-git/)
+[![Donate](https://img.shields.io/badge/-%E2%99%A5%20Donate-%23ff69b4)](https://hmlendea.go.ro/fund.html) [![Build Status](https://github.com/hmlendea/duolingo-desktop/actions/workflows/node.js.yml/badge.svg)](https://github.com/hmlendea/duolingo-desktop/actions/workflows/node.js.yml)
 
 # About
 
@@ -6,7 +6,9 @@ This is a cross-platform desktop client for Duolingo, that works as a wrapper ar
 
 # Installation
 
-## Manual
+[![Get it from the AUR](https://raw.githubusercontent.com/hmlendea/readme-assets/master/install_from_aur.png)](https://aur.archlinux.org/packages/duolingo-desktop-git/)
+
+## Manual Installation
 
  - Go to the [latest release](https://github.com/hmlendea/duolingo-desktop/releases/latest).
  - Download the specific file that best fits your disto:
