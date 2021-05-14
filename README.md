@@ -1,4 +1,4 @@
-[![Donate](https://img.shields.io/badge/-%E2%99%A5%20Donate-%23ff69b4)](https://hmlendea.go.ro/fund.html) [![Build Status](https://github.com/hmlendea/duolingo-desktop/actions/workflows/node.js.yml/badge.svg)](https://github.com/hmlendea/duolingo-desktop/actions/workflows/node.js.yml) [![Latest GitHub release](https://img.shields.io/github/v/release/hmlendea/duolingo-desktop)](https://github.com/hmlendea/duolingo-desktop/releases/latest)
+[![Donate](https://img.shields.io/badge/-%E2%99%A5%20Donate-%23ff69b4)](https://hmlendea.go.ro/fund.html) [![Latest GitHub release](https://img.shields.io/github/v/release/hmlendea/duolingo-desktop)](https://github.com/hmlendea/duolingo-desktop/releases/latest) [![Build Status](https://github.com/hmlendea/duolingo-desktop/actions/workflows/node.js.yml/badge.svg)](https://github.com/hmlendea/duolingo-desktop/actions/workflows/node.js.yml)
 
 # About
 
