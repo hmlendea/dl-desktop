@@ -1,6 +1,4 @@
-[![Build Status](https://github.com/hmlendea/duolingo-desktop/actions/workflows/node.js.yml/badge.svg)](https://github.com/hmlendea/duolingo-desktop/actions/workflows/node.js.yml) [![Arch Linux AUR Package](https://img.shields.io/aur/version/duolingo-desktop-git?logo=arch-linux&logoColor=white)](https://aur.archlinux.org/packages/duolingo-desktop-git/)
-
-[![Support this on Patreon](https://raw.githubusercontent.com/hmlendea/readme-assets/master/donate_patreon_small.png)](https://www.patreon.com/hmlendea)[![Support this on Patreon](https://raw.githubusercontent.com/hmlendea/readme-assets/master/donate_paypal_small.png)](https://raw.githubusercontent.com/hmlendea/readme-assets/master/donate_paypal.png)[![Donate with LiberaPay](https://raw.githubusercontent.com/hmlendea/readme-assets/master/donate_liberapay_small.png)](https://liberapay.com/HMlendea/donate)
+[![Donate](https://img.shields.io/badge/-%E2%99%A5%20Donate-%23ff69b4)](https://hmlendea.go.ro/fund.html) [![Build Status](https://github.com/hmlendea/duolingo-desktop/actions/workflows/node.js.yml/badge.svg)](https://github.com/hmlendea/duolingo-desktop/actions/workflows/node.js.yml) [![Arch Linux AUR Package](https://img.shields.io/aur/version/duolingo-desktop-git?logo=arch-linux&logoColor=white)](https://aur.archlinux.org/packages/duolingo-desktop-git/)
 
 # About
 
@@ -37,5 +35,3 @@ In the main directory of this repository run the following:
 npm install
 npm run-script build
 ```
-
-[![Support on Patreon](https://raw.githubusercontent.com/hmlendea/readme-assets/master/donate_patreon.png)](https://www.patreon.com/hmlendea)[![Donate with PayPal](https://raw.githubusercontent.com/hmlendea/readme-assets/master/donate_paypal.png)](https://www.paypal.com/donate?hosted_button_id=6YVRGJHDGWGKQ)[![Donate with LiberaPay](https://raw.githubusercontent.com/hmlendea/readme-assets/master/donate_liberapay.png)](https://liberapay.com/HMlendea/donate)
