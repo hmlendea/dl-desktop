@@ -35,5 +35,5 @@ You will need to install [npm](https://www.npmjs.com/), the Node.js package mana
 In the main directory of this repository run the following:
 ```
 npm install
-npm run-script build
+npm run build
 ```
