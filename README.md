@@ -45,5 +45,5 @@ You will need to install both npm and [electron](https://www.electronjs.org/), s
 Afterwards run the following in the main directory of this repository:
 ```
 npm install
-./node_modules/.bin/electron-builder --win
+sudo ./node_modules/.bin/electron-builder --win
 ```
