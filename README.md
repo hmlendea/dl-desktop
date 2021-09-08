@@ -40,9 +40,17 @@ npm run build
 
 # Building from source (Windows)
 
-You will need to install both npm and [electron](https://www.electronjs.org/), specifically electron-builder.
+You will need to install [Node.js](https://nodejs.org/en/download/current/) which includes npm.
 
-Afterwards run the following in the main directory of this repository:
+Afterwards run the following in the main directory depending on your current system:
+
+If you are building on Windows:
+```
+npm install
+./node_modules/.bin/electron-builder --win
+```
+
+If you are building on Linux:
 ```
 npm install
 sudo ./node_modules/.bin/electron-builder --win
