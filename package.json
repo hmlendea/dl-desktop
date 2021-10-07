@@ -35,9 +35,6 @@
   ],
   "author": "Horațiu Mlendea <Horatiu.Mlendea@ProtonMail.com>",
   "license": "GPL-3.0",
-  "dependencies": {
-    "app-module-path": "2.2.0"
-  },
   "devDependencies": {
     "electron": "13.2.1",
     "electron-builder": "^22.9.1"
