@@ -22,7 +22,7 @@
       "artifactName": "${name}_${version}_linux.${ext}"
     },
     "extraFiles": [
-      "duolingo-desktop.desktop"
+      "com.github.hmlendea.duolingo-desktop.desktop"
     ]
   },
   "repository": {
