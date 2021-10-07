@@ -1,77 +1,38 @@
-const electron = require('electron');
-const BrowserWindow = electron.BrowserWindow;
-const Menu = electron.Menu;
-const shell = electron.shell;
-const app = electron.app;
-const file_paths = require('file_paths');
-const url = require('url');
+const {app, BrowserWindow} = require('electron');
+const path = require('path');
 
-let mainWindow;
-let webContents;
-
-/**
- * creates the main window of the app
- */
 function createWindow () {
-  mainWindow = new BrowserWindow({
-    width: 1280, height: 800,
+  const mainWindow = new BrowserWindow({
+    width: 1280,
+    height: 800,
     title: global.manifest.productName,
-    icon: file_paths.getIconPath(),
+    icon: path.join('icon.png'),
     webPreferences: {
-        webviewTag: true }})
-
-  webContents = mainWindow.webContents;
-
-  mainWindow.loadURL(url.format({
-    pathname: file_paths.getPagePath('index'),
-    protocol: 'file:',
-    slashes: true
-  }))
-
-  webContents.on('new-window', function(event, url){
-    event.preventDefault();
-    shell.openExternal(url);
+      preload: path.join(__dirname, 'preload.js'),
+      contextIsolation: false,
+      webviewTag: true
+    }
   });
 
-  // disable the menu bar
-  mainWindow.setMenu(null);
-
-  // mainWindow events
-  mainWindow.on('closed', function () {
-    mainWindow = null;
-  });
+  mainWindow.loadURL('https://www.duolingo.com');
 }
 
-// application events
-app.on('ready', createWindow);
+app.whenReady().then(() => {
+  createWindow();
+  
+  app.on('activate', function () {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow();
+    }
+  });
+});
+
+app.on('browser-window-created', function(e, window) {
+  window.setMenu(null);
+});
 
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') {
     app.quit();
   }
 });
-
-app.on('activate', function () {
-  if (mainWindow === null) {
-    createWindow();
-  }
-});
-
-// menu bar
-const template = [{
-  label: 'App',
-  submenu: [{
-    label: 'Developer tools',
-    click(item, focusedWindow) {
-      mainWindow.toggleDevTools();
-    }
-    }, {
-      label: 'Exit',
-      click(item, focusedWindow) {
-        app.quit();
-      }
-    }]
-}];
-
-const menu = Menu.buildFromTemplate(template);
-Menu.setApplicationMenu(menu);
