@@ -4,7 +4,7 @@
   "productName": "Duolingo",
   "version": "2.0.6",
   "description": "A desktop client for Duolingo",
-  "main": "scripts/init.js",
+  "main": "scripts/main.js",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder --publish never"
