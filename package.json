@@ -2,7 +2,7 @@
   "name": "duolingo-desktop",
   "appId": "com.electron.${name}",
   "productName": "Duolingo",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "A desktop client for Duolingo",
   "main": "scripts/main.js",
   "scripts": {
