@@ -2,7 +2,7 @@
   "name": "duolingo-desktop",
   "appId": "com.electron.${name}",
   "productName": "Duolingo",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "A desktop client for Duolingo",
   "main": "scripts/main.js",
   "scripts": {
@@ -36,7 +36,7 @@
   "author": "Horațiu Mlendea <Horatiu.Mlendea@ProtonMail.com>",
   "license": "GPL-3.0",
   "devDependencies": {
-    "electron": "13.3.0",
+    "electron": "^13.6.0",
     "electron-builder": "^22.9.1"
   }
 }
