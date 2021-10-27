@@ -11,11 +11,11 @@ This is a cross-platform desktop client for Duolingo, that works as a wrapper ar
 ## Manual Installation
 
  - Go to the [latest release](https://github.com/hmlendea/duolingo-desktop/releases/latest).
- - Download the specific file that best fits your disto:
+ - Download the specific file that best fits your OS:
    - **apk**: Installation package for Alpine Linux.
    - **deb**: Installation package for Debian and Ubuntu, and of course all their derivates.
    - **snap**: Snap package installer, for distributions like e.g. Ubuntu.
-   - **zip**: A simple zip archive containing a generic Linux build for all distros that can run without installation.
+   - **zip**: A simple zip archive containing a generic Linux or Windows build for all distros that can run without installation.
    - **AppImage**: A single big binary file holding the entire app that can run without installation.
 
 ## Using a package manager
@@ -28,7 +28,7 @@ For other distributions, you will have to check if someone included this package
 
 If you've installed it through your package manager, then it should already contain a launcher for it. Otherwise, run the `duolingo-desktop` binary.
 
-# Building from source
+# Building from source (Linux)
 
 You will need to install [npm](https://www.npmjs.com/), the Node.js package manager.
 
@@ -36,4 +36,22 @@ In the main directory of this repository run the following:
 ```
 npm install
 npm run build
+```
+
+# Building from source (Windows)
+
+You will need to install [Node.js](https://nodejs.org/en/download/current/) which includes npm.
+
+Afterwards run the following in the main directory depending on your current system:
+
+If you are building on Windows:
+```
+npm install
+./node_modules/.bin/electron-builder --win
+```
+
+If you are building on Linux:
+```
+npm install
+sudo ./node_modules/.bin/electron-builder --win
 ```
