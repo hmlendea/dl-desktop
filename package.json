@@ -21,6 +21,12 @@
       "category": "Education",
       "artifactName": "${name}_${version}_linux.${ext}"
     },
+    "snap": {
+      "plugs": [
+        "default",
+        "audio-record"
+      ]
+    },
     "extraFiles": [
       "com.github.hmlendea.duolingo-desktop.desktop"
     ]
