@@ -1,6 +1,6 @@
 {
   "name": "duolingo-desktop",
-  "appId": "ro.hmlendea.Duolingo",
+  "appId": "ro.go.hmlendea.Duolingo",
   "productName": "Duolingo",
   "version": "2.0.11",
   "description": "A desktop client for Duolingo",
@@ -28,7 +28,7 @@
       ]
     },
     "extraFiles": [
-      "ro.hmlendea.Duolingo.desktop"
+      "ro.go.hmlendea.Duolingo.desktop"
     ]
   },
   "repository": {
