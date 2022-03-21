@@ -14,7 +14,7 @@ function createWindow () {
     }
   });
 
-  mainWindow.webContents.userAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36";
+  mainWindow.webContents.userAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.82 Safari/537.36";
   mainWindow.loadURL('https://www.duolingo.com');
 }
 
