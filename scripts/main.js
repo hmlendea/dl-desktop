@@ -1,5 +1,8 @@
 const {app, BrowserWindow} = require('electron');
 const path = require('path');
+const fs = require('fs');
+
+var cachedDarkModeUserScript = null;
 
 function createWindow () {
   const mainWindow = new BrowserWindow({
@@ -30,6 +33,22 @@ app.whenReady().then(() => {
 
 app.on('browser-window-created', function(e, window) {
   window.setMenu(null);
+
+  window.on("page-title-updated", function (e, title) {
+    if (cachedDarkModeUserScript) {
+      window.webContents.executeJavaScript(`${cachedDarkModeUserScript}`);
+    } else {
+      const { net } = require('electron')
+      const getDarkUserScriptRequest = net.request('https://userstyles.org/styles/userjs/171472/duolingo-dark-2022.user.js')
+      getDarkUserScriptRequest.on('response', (response) => {
+        response.on('data', (chunk) => {
+          cachedDarkModeUserScript = `${chunk}`;
+          window.webContents.executeJavaScript(`${chunk}`);
+        })
+      })
+      getDarkUserScriptRequest.end();
+    }
+  });
 });
 
 app.on('window-all-closed', function () {
@@ -37,3 +56,14 @@ app.on('window-all-closed', function () {
     app.quit();
   }
 });
+
+async function getUrlResource() {
+  const { net } = require('electron')
+  const getDarkUserScriptRequest = net.request('https://userstyles.org/styles/userjs/171472/duolingo-dark-2022.user.js')
+  getDarkUserScriptRequest.on('response', (response) => {
+    response.on('data', (chunk) => {
+      return cachedDarkModeUserScript=`${chunk}`;
+    })
+  })
+  getDarkUserScriptRequest.end();
+}
