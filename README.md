@@ -2,7 +2,7 @@
 
 # About
 
-This is a cross-platform desktop client for Duolingo, that works as a wrapper around the official web app.
+This is an **unofficial** Linux desktop client for Duolingo, that works as a wrapper around the official web app.
 
 # Installation
 
@@ -55,3 +55,8 @@ If you are building on Linux:
 npm install
 sudo ./node_modules/.bin/electron-builder --win
 ```
+
+# Credits
+ - Duolingo itself, for being an awesome language learning platform
+ - [PatCat](https://userstyles.org/users/806594) for the [dark theme](https://userstyles.org/styles/171472/duolingo-dark-2022)
+ - Our [contributors](https://github.com/hmlendea/duolingo-desktop/graphs/contributors)!
