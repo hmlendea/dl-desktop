@@ -11,13 +11,12 @@ function createWindow () {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: false,
-      nativeWindowOpen: false,
       webviewTag: true
     }
   });
 
   mainWindow.webContents.userAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.82 Safari/537.36";
-  mainWindow.loadURL('https://www.duolingo.com');
+  mainWindow.loadURL('https://duolingo.com');
 }
 
 app.whenReady().then(() => {
@@ -57,14 +56,3 @@ app.on('window-all-closed', function () {
     app.quit();
   }
 });
-
-async function getUrlResource() {
-  const { net } = require('electron')
-  const getDarkUserScriptRequest = net.request('https://userstyles.org/styles/userjs/171472/duolingo-dark-2022.user.js')
-  getDarkUserScriptRequest.on('response', (response) => {
-    response.on('data', (chunk) => {
-      return cachedDarkModeUserScript=`${chunk}`;
-    })
-  })
-  getDarkUserScriptRequest.end();
-}
