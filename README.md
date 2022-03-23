@@ -1,4 +1,4 @@
-[![Donate](https://img.shields.io/badge/-%E2%99%A5%20Donate-%23ff69b4)](https://hmlendea.go.ro/fund.html) [![Latest GitHub release](https://img.shields.io/github/v/release/hmlendea/duolingo-desktop)](https://github.com/hmlendea/duolingo-desktop/releases/latest) [![Build Status](https://github.com/hmlendea/duolingo-desktop/actions/workflows/node.js.yml/badge.svg)](https://github.com/hmlendea/duolingo-desktop/actions/workflows/node.js.yml)
+[![Donate](https://img.shields.io/badge/-%E2%99%A5%20Donate-%23ff69b4)](https://hmlendea.go.ro/fund.html) [![Latest GitHub release](https://img.shields.io/github/v/release/hmlendea/dl-desktop)](https://github.com/hmlendea/dl-desktop/releases/latest) [![Build Status](https://github.com/hmlendea/dl-desktop/actions/workflows/node.js.yml/badge.svg)](https://github.com/hmlendea/dl-desktop/actions/workflows/node.js.yml)
 
 # About
 
@@ -10,7 +10,7 @@ This is an **unofficial** Linux desktop client for Duolingo, that works as a wra
 
 ## Manual Installation
 
- - Go to the [latest release](https://github.com/hmlendea/duolingo-desktop/releases/latest).
+ - Go to the [latest release](https://github.com/hmlendea/dl-desktop/releases/latest).
  - Download the specific file that best fits your OS:
    - **apk**: Installation package for Alpine Linux.
    - **deb**: Installation package for Debian and Ubuntu, and of course all their derivates.
@@ -26,7 +26,7 @@ For other distributions, you will have to check if someone included this package
 
 # Usage
 
-If you've installed it through your package manager, then it should already contain a launcher for it. Otherwise, run the `duolingo-desktop` binary.
+If you've installed it through your package manager, then it should already contain a launcher for it. Otherwise, run the `dl-desktop` binary.
 
 # Building from source (Linux)
 
@@ -59,4 +59,7 @@ sudo ./node_modules/.bin/electron-builder --win
 # Credits
  - Duolingo itself, for being an awesome language learning platform
  - [PatCat](https://userstyles.org/users/806594) for the [dark theme](https://userstyles.org/styles/171472/duolingo-dark-2022)
- - Our [contributors](https://github.com/hmlendea/duolingo-desktop/graphs/contributors)!
+ - [creepertron95](https://github.com/creepertron95) for the [icon](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme/blob/6e4fea69f884e2e874e872b87e49892a246be65d/Papirus/48x48/apps/duolingo.svg)
+ - Our [contributors](https://github.com/hmlendea/dl-desktop/graphs/contributors)!
+
+_The name Duolingo, and the Duolingo logo, are copyrights of Duolingo
