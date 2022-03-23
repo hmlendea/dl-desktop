@@ -1,9 +1,9 @@
 {
-  "name": "duolingo-desktop",
-  "appId": "ro.go.hmlendea.Duolingo",
-  "productName": "Duolingo",
+  "name": "dl-desktop",
+  "appId": "ro.go.hmlendea.DL-Desktop",
+  "productName": "DL: language lessons",
   "version": "3.0.0",
-  "description": "A desktop client for Duolingo",
+  "description": "An unofficial desktop client for Duolingo",
   "main": "scripts/main.js",
   "scripts": {
     "start": "electron .",
@@ -28,12 +28,12 @@
       ]
     },
     "extraFiles": [
-      "ro.go.hmlendea.Duolingo.desktop"
+      "ro.go.hmlendea.DL-Desktop.desktop"
     ]
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hmlendea/duolingo-desktop.git"
+    "url": "git+https://github.com/hmlendea/dl-desktop.git"
   },
   "keywords": [
     "Electron",
