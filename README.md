@@ -33,10 +33,11 @@ If you've installed it through your package manager, then it should already cont
 You will need to install [npm](https://www.npmjs.com/), the Node.js package manager.
 
 In the main directory of this repository run the following:
-```
+```bash
 npm install
 npm run build
 ```
+
 
 # Building from source (Windows)
 
@@ -45,13 +46,12 @@ You will need to install [Node.js](https://nodejs.org/en/download/current/) whic
 Afterwards run the following in the main directory depending on your current system:
 
 If you are building on Windows:
-```
+```powershell
 npm install
 ./node_modules/.bin/electron-builder --win
 ```
-
 If you are building on Linux:
-```
+```bash
 npm install
 sudo ./node_modules/.bin/electron-builder --win
 ```
