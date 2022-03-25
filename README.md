@@ -62,4 +62,4 @@ sudo ./node_modules/.bin/electron-builder --win
  - [creepertron95](https://github.com/creepertron95) for the [icon](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme/blob/6e4fea69f884e2e874e872b87e49892a246be65d/Papirus/48x48/apps/duolingo.svg)
  - Our [contributors](https://github.com/hmlendea/dl-desktop/graphs/contributors)!
 
-_The name Duolingo, and the Duolingo logo, are copyrights of Duolingo
+_The name Duolingo, and the Duolingo logo, are copyrights of Duolingo_
