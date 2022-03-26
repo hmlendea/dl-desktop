@@ -1,4 +1,4 @@
-[![Donate](https://img.shields.io/badge/-%E2%99%A5%20Donate-%23ff69b4)](https://hmlendea.go.ro/fund.html) [![Latest GitHub release](https://img.shields.io/github/v/release/hmlendea/dl-desktop)](https://github.com/hmlendea/dl-desktop/releases/latest) [![Build Status](https://github.com/hmlendea/dl-desktop/actions/workflows/node.js.yml/badge.svg)](https://github.com/hmlendea/dl-desktop/actions/workflows/node.js.yml)
+[![Donate](https://img.shields.io/badge/-%E2%99%A5%20Donate-%23ff69b4)](https://hmlendea.go.ro/fund.html) [![Build Status](https://github.com/hmlendea/dl-desktop/actions/workflows/node.js.yml/badge.svg)](https://github.com/hmlendea/dl-desktop/actions/workflows/node.js.yml) [![Latest GitHub release](https://img.shields.io/github/v/release/hmlendea/dl-desktop)](https://github.com/hmlendea/dl-desktop/releases/latest)
 
 # About
 
@@ -6,7 +6,7 @@ This is an **unofficial** Linux desktop client for Duolingo, that works as a wra
 
 # Installation
 
-[![Get it from the AUR](https://raw.githubusercontent.com/hmlendea/readme-assets/master/install_from_aur.png)](https://aur.archlinux.org/packages/duolingo-desktop-git/)  [![Get it from the Snap Store](https://raw.githubusercontent.com/snapcore/snap-store-badges/master/EN/%5BEN%5D-snap-store-white.png)](https://snapcraft.io/duolingo-desktop)
+[![Get it from the AUR](https://raw.githubusercontent.com/hmlendea/readme-assets/master/install_from_aur.png)](https://aur.archlinux.org/packages/duolingo-desktop-git/) [![Get it from FlatHub](https://raw.githubusercontent.com/hmlendea/readme-assets/master/badges/stores/flathub.png)](https://flathub.org/apps/details/ro.go.hmlendea.DL-Desktop) [![Get it from the Snap Store](https://raw.githubusercontent.com/snapcore/snap-store-badges/master/EN/%5BEN%5D-snap-store-white.png)](https://snapcraft.io/duolingo-desktop)
 
 ## Manual Installation
 
@@ -33,10 +33,11 @@ If you've installed it through your package manager, then it should already cont
 You will need to install [npm](https://www.npmjs.com/), the Node.js package manager.
 
 In the main directory of this repository run the following:
-```
+```bash
 npm install
 npm run build
 ```
+
 
 # Building from source (Windows)
 
@@ -45,13 +46,12 @@ You will need to install [Node.js](https://nodejs.org/en/download/current/) whic
 Afterwards run the following in the main directory depending on your current system:
 
 If you are building on Windows:
-```
+```powershell
 npm install
 ./node_modules/.bin/electron-builder --win
 ```
-
 If you are building on Linux:
-```
+```bash
 npm install
 sudo ./node_modules/.bin/electron-builder --win
 ```
@@ -62,4 +62,4 @@ sudo ./node_modules/.bin/electron-builder --win
  - [creepertron95](https://github.com/creepertron95) for the [icon](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme/blob/6e4fea69f884e2e874e872b87e49892a246be65d/Papirus/48x48/apps/duolingo.svg)
  - Our [contributors](https://github.com/hmlendea/dl-desktop/graphs/contributors)!
 
-_The name Duolingo, and the Duolingo logo, are copyrights of Duolingo
+_The name Duolingo, and the Duolingo logo, are copyrights of Duolingo_
