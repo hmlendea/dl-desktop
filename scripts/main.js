@@ -1,5 +1,6 @@
 const {app, nativeTheme, BrowserWindow} = require('electron');
 const path = require('path');
+const fs = require('fs');
 
 var cachedDarkModeUserScript = null;
 
@@ -34,19 +35,34 @@ app.on('browser-window-created', function(e, window) {
 
   if (nativeTheme.shouldUseDarkColors) {
     window.on("page-title-updated", function (e, title) {
-      if (cachedDarkModeUserScript) {
-        window.webContents.executeJavaScript(`${cachedDarkModeUserScript}`);
-      } else {
-        const { net } = require('electron')
-        const getDarkUserScriptRequest = net.request('https://userstyles.org/styles/userjs/171472/duolingo-dark-2022.user.js')
-        getDarkUserScriptRequest.on('response', (response) => {
-          response.on('data', (chunk) => {
-            cachedDarkModeUserScript = `${chunk}`;
-            window.webContents.executeJavaScript(`${chunk}`);
-          })
-        })
-        getDarkUserScriptRequest.end();
+      if (!cachedDarkModeUserScript) {
+        fs.readFile('styles/dark/main.css', 'utf-8', (err, data) => {
+          cachedDarkModeUserScript =
+            '(function() {\n' +
+            '  var css = "";\n' +
+            '  if (false || (document.location.href.indexOf("https://www.duolingo.com/") == 0)) {\n' +
+            '    css += [\n';
+
+          var lines = data.split('\n');
+          for (var i = 0; i < lines.length; i++){
+            cachedDarkModeUserScript +=
+              '      \"' + lines[i].replace(/\"/g, "\\\"") + '\",\n';
+          }
+          
+          cachedDarkModeUserScript +=
+              '      \"\"\n' +
+              '    ].join(\"\\n\");\n' +
+              '  }\n' +
+              '\n' +
+              '  var node = document.createElement("style");\n' +
+              '  node.appendChild(document.createTextNode(css));\n' +
+              '\n' +
+              '  document.documentElement.appendChild(node);\n' +
+              '})();\n'
+        });
       }
+
+      window.webContents.executeJavaScript(`${cachedDarkModeUserScript}`);
     });
   }
 });
