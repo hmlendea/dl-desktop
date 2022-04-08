@@ -28,6 +28,7 @@
       ]
     },
     "extraFiles": [
+      "styles/dark.css",
       "ro.go.hmlendea.DL-Desktop.desktop"
     ]
   },

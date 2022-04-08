@@ -36,7 +36,7 @@ app.on('browser-window-created', function(e, window) {
   if (nativeTheme.shouldUseDarkColors) {
     window.on("page-title-updated", function (e, title) {
       if (!cachedDarkModeUserScript) {
-        fs.readFile('styles/dark/main.css', 'utf-8', (err, data) => {
+        fs.readFile('styles/dark.css', 'utf-8', (err, data) => {
           cachedDarkModeUserScript =
             '(function() {\n' +
             '  var css = "";\n' +
