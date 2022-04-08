@@ -13,9 +13,6 @@
     "linux": {
       "target": [
         "zip",
-        "AppImage",
-        "deb",
-        "apk",
         "snap"
       ],
       "category": "Education",
