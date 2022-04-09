@@ -12,17 +12,10 @@
   "build": {
     "linux": {
       "target": [
-        "zip",
-        "snap"
+        "zip"
       ],
       "category": "Education",
       "artifactName": "${name}_${version}_linux.${ext}"
-    },
-    "snap": {
-      "plugs": [
-        "default",
-        "audio-record"
-      ]
     },
     "extraFiles": [
       "styles/dark.css",
