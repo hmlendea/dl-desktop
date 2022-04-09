@@ -8,16 +8,6 @@ This is an **unofficial** Linux desktop client for Duolingo, that works as a wra
 
 [![Get it from the AUR](https://raw.githubusercontent.com/hmlendea/readme-assets/master/install_from_aur.png)](https://aur.archlinux.org/packages/duolingo-desktop-git/) [![Get it from FlatHub](https://raw.githubusercontent.com/hmlendea/readme-assets/master/badges/stores/flathub.png)](https://flathub.org/apps/details/ro.go.hmlendea.DL-Desktop) [![Get it from the Snap Store](https://raw.githubusercontent.com/snapcore/snap-store-badges/master/EN/%5BEN%5D-snap-store-white.png)](https://snapcraft.io/duolingo-desktop)
 
-## Manual Installation
-
- - Go to the [latest release](https://github.com/hmlendea/dl-desktop/releases/latest).
- - Download the specific file that best fits your OS:
-   - **apk**: Installation package for Alpine Linux.
-   - **deb**: Installation package for Debian and Ubuntu, and of course all their derivates.
-   - **snap**: Snap package installer, for distributions like e.g. Ubuntu.
-   - **zip**: A simple zip archive containing a generic Linux or Windows build for all distros that can run without installation.
-   - **AppImage**: A single big binary file holding the entire app that can run without installation.
-
 ## Using a package manager
 
 On Arch Linux, the package is available on the AUR ([duolingo-desktop-git](https://aur.archlinux.org/packages/duolingo-desktop-git/)).
