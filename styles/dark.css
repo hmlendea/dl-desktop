@@ -5056,3 +5056,18 @@ embed[type="application/pdf"] { filter: invert(100%) contrast(90%); }
 button[aria-disabled="true"] > span {
     opacity: 0.3 !important;
 }
+
+/* CUSTOM CSS DL-DESKTOP */
+
+/* Exercises footer */
+._399cc, ._2LMXW, ._3iFZd {
+    background-color: rgb(24, 26, 27);
+    border-top-color: rgb(55, 60, 62);
+}
+
+/* Exercises input box */
+._2ti2i {
+    background-color: rgb(29, 31, 32);
+    border-color: rgb(55, 60, 62);
+    color: rgb(194, 189, 181);
+}
