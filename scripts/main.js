@@ -38,9 +38,10 @@ app.on('browser-window-created', function(e, window) {
       if (!cachedDarkModeUserScript) {
         fs.readFile('styles/dark.css', 'utf-8', (err, data) => {
           if (err) {
+            cachedDarkModeUserScript = " ";
             return console.log(err);
           }
-          
+
           cachedDarkModeUserScript =
             '(function() {\n' +
             '  var css = "";\n' +
