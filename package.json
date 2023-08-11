@@ -2,7 +2,7 @@
   "name": "dl-desktop",
   "appId": "ro.go.hmlendea.DL-Desktop",
   "productName": "DL: language lessons",
-  "version": "3.5.0",
+  "version": "3.6.0",
   "description": "An unofficial desktop client for Duolingo",
   "main": "scripts/main.js",
   "scripts": {
@@ -33,7 +33,7 @@
   "author": "Horațiu Mlendea <Horatiu.Mlendea@ProtonMail.com>",
   "license": "GPL-3.0",
   "devDependencies": {
-    "electron": "^24.6.2",
-    "electron-builder": "^24.4.0"
+    "electron": "^25.5.0",
+    "electron-builder": "^24.6.3"
   }
 }
