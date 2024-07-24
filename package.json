@@ -2,7 +2,7 @@
   "name": "dl-desktop",
   "appId": "ro.go.hmlendea.DL-Desktop",
   "productName": "DL: language lessons",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "An unofficial desktop client for Duolingo",
   "main": "scripts/main.js",
   "scripts": {
