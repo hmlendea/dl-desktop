@@ -29,7 +29,7 @@
     "Electron",
     "Duolingo"
   ],
-  "author": "Horațiu Mlendea <io.github.hmlendea.cnzq9@SimpleLogin.fr>",
+  "author": "hmlendea <io.github.hmlendea.cnzq9@SimpleLogin.fr>",
   "license": "GPL-3.0",
   "devDependencies": {
     "electron": "^36.9.5",
