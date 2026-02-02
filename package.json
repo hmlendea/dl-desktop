@@ -33,6 +33,6 @@
   "license": "GPL-3.0",
   "devDependencies": {
     "electron": "^36.9.5",
-    "electron-builder": "^26.0.12"
+    "electron-builder": "^26.6.0"
   }
 }
