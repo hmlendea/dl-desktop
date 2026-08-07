@@ -12,7 +12,7 @@ This is an **unofficial** Linux desktop client for Duolingo, which works as a wr
 
 ## Using a package manager
 
-On Arch Linux, the package is available on the AUR: [duolingo-desktop-bin](https://aur.archlinux.org/packages/duolingo-desktop-bin/).  
+On Arch Linux, the package is available on the AUR: [duolingo-desktop-bin](https://aur.archlinux.org/packages/duolingo-desktop-bin/).
 Please note that the package `duolingo-desktop-git` has not been updated since 2020. Therefore, we recommend using `duolingo-desktop-bin` for installing Duolingo on Arch.
 
 For other distributions, please check if this package is available in your package manager's repository.
@@ -49,6 +49,10 @@ For Linux (to build for Windows):
 npm install
 sudo ./node_modules/.bin/electron-builder --win
 ```
+
+# Security
+
+For information on reporting security vulnerabilities, see [SECURITY.md](./SECURITY.md).
 
 # Credits
 - Duolingo, for providing an awesome language learning platform.
