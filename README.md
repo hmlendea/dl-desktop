@@ -1,62 +1,146 @@
-[![Donate](https://img.shields.io/badge/-%E2%99%A5%20Donate-%23ff69b4)](https://hmlendea.go.ro/fund.html) [![Build Status](https://github.com/hmlendea/dl-desktop/actions/workflows/node.js.yml/badge.svg)](https://github.com/hmlendea/dl-desktop/actions/workflows/node.js.yml) [![Latest GitHub release](https://img.shields.io/github/v/release/hmlendea/dl-desktop)](https://github.com/hmlendea/dl-desktop/releases/latest)
+[![Donate](https://img.shields.io/badge/-%E2%99%A5%20Donate-%23ff69b4)](https://hmlendea.go.ro/funding)
+[![Latest Release](https://img.shields.io/github/v/release/hmlendea/dl-desktop)](https://github.com/hmlendea/dl-desktop/releases/latest)
+[![Build Status](https://github.com/hmlendea/dl-desktop/actions/workflows/node.js.yml/badge.svg)](https://github.com/hmlendea/dl-desktop/actions/workflows/node.js.yml)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://gnu.org/licenses/gpl-3.0)
 
-# About
+# Duolingo Desktop
 
-This is an **unofficial** Linux desktop client for Duolingo, which works as a wrapper around the official web app.
+An unofficial Linux desktop application for Duolingo that wraps the official web application in a dedicated Electron window and blocks common trackers.
 
-# Installation
+![Preview screenshot](preview.png)
 
-[![Get it from the AUR](https://raw.githubusercontent.com/hmlendea/readme-assets/master/install_from_aur.png)](https://aur.archlinux.org/packages/duolingo-desktop-bin/) [![Get it from FlatHub](https://raw.githubusercontent.com/hmlendea/readme-assets/master/badges/stores/flathub.png)](https://flathub.org/apps/details/ro.go.hmlendea.DL-Desktop) [![Get it from the Snap Store](https://raw.githubusercontent.com/snapcore/snap-store-badges/master/EN/%5BEN%5D-snap-store-white.png)](https://snapcraft.io/duolingo-desktop)
+## 📑 Table of Contents
 
-**Note**: _Only the FlatHub version is officially supported by this repository. The AUR and Snap versions are community-maintained. Please report any issues with these versions on their respective pages._
+- [Capabilities](#capabilities)
+- [Usage](#usage)
+- [Known Limitations](#known-limitations)
+- [System Requirements](#system-requirements)
+- [Installation](#installation)
+  - [CLI Installation](#cli-installation)
+  - [Manual Installation](#manual-installation)
+- [Development](#development)
+  - [Requirements](#requirements)
+  - [Setup](#setup)
+  - [Build](#build)
+  - [Run](#run)
+- [Security](#security)
+- [Acknowledgements](#acknowledgements)
+- [Contributing](#contributing)
+- [License](#license)
+- [Supporting the Project](#supporting-the-project)
 
-## Using a package manager
+## ✨ Capabilities
 
-On Arch Linux, the package is available on the AUR: [duolingo-desktop-bin](https://aur.archlinux.org/packages/duolingo-desktop-bin/).
-Please note that the package `duolingo-desktop-git` has not been updated since 2020. Therefore, we recommend using `duolingo-desktop-bin` for installing Duolingo on Arch.
+- Opens Duolingo in a standalone desktop window.
+- Removes common tracking query parameters from requests.
+- Blocks a small set of advertising, telemetry, and attribution domains.
+- Sends Do Not Track and Global Privacy Control headers by default.
 
-For other distributions, please check if this package is available in your package manager's repository.
+## 🚀 Usage
 
-# Usage
+After installation, launch the application from your desktop menu. If you prefer to start it from a terminal, run:
 
-If you've installed it through your package manager, it should automatically add a launcher for the app. Otherwise, you can run the `dl-desktop` binary manually.
+```bash
+dl-desktop
+```
 
-# Building from source (Linux)
+The application opens Duolingo directly and applies the built-in privacy filters automatically.
 
-You will need to install [npm](https://www.npmjs.com/), the Node.js package manager.
+## ⚠️ Known Limitations
 
-In the main directory of this repository, run the following commands:
+- This is an unofficial client and depends on Duolingo's web application.
+- Only the FlatHub package is officially supported in this repository.
+- The AUR and Snap packages are community-maintained.
+- Behaviour can change if Duolingo updates its web application.
+
+## 🖥️ System Requirements
+
+- **OS:** Linux
+- **Network:** An active internet connection
+- **Desktop:** A graphical desktop environment capable of running Electron applications
+
+## 📦 Installation
+
+[![Obtain it from FlatHub](https://raw.githubusercontent.com/hmlendea/readme-assets/master/badges/stores/flathub.png)](https://flathub.org/apps/details/ro.go.hmlendea.DL-Desktop)
+[![Obtain it from Snap Store](https://raw.githubusercontent.com/snapcore/snap-store-badges/master/EN/%5BEN%5D-snap-store-white.png)](https://snapcraft.io/duolingo-desktop)
+[![Obtain it from AUR](https://raw.githubusercontent.com/hmlendea/readme-assets/master/install_from_aur.png)](https://aur.archlinux.org/packages/duolingo-desktop-bin/)
+[![Obtain it from GitHub](https://raw.githubusercontent.com/hmlendea/readme-assets/master/badges/stores/github.png)](https://github.com/hmlendea/dl-desktop/releases)
+
+The FlatHub package is the only distribution channel that is officially supported by this repository. The AUR and Snap packages are maintained by the community.
+
+### CLI Installation
+
+To install the FlatHub package:
+
+```bash
+flatpak install flathub ro.go.hmlendea.DL-Desktop
+```
+
+To install the Snap package:
+
+```bash
+snap install duolingo-desktop
+```
+
+On Arch Linux, install the AUR package with your preferred helper:
+
+```bash
+paru -S duolingo-desktop-bin
+```
+
+or, if you use `yay`:
+
+```bash
+yay -S duolingo-desktop-bin
+```
+
+### Manual Installation
+
+Download the latest GitHub release, extract it, and run the packaged binary on a supported Linux system.
+
+## 🛠️ Development
+
+### Requirements
+
+- [Node.js 24.x](https://nodejs.org/)
+- npm
+
+### Setup
 
 ```bash
 npm install
+```
+
+### Build
+
+```bash
 npm run build
 ```
 
-# Building from source (Windows)
+### Run
 
-You will need to install [Node.js](https://nodejs.org/en/download/current/), which includes npm.
-
-Then, depending on your system, run the following commands in the main directory:
-
-For Windows:
-```powershell
-npm install
-./node_modules/.bin/electron-builder --win
-```
-
-For Linux (to build for Windows):
 ```bash
-npm install
-sudo ./node_modules/.bin/electron-builder --win
+npm start
 ```
 
-# Security
+## 🔒 Security
 
 For information on reporting security vulnerabilities, see [SECURITY.md](./SECURITY.md).
 
-# Credits
-- Duolingo, for providing an awesome language learning platform.
-- [creepertron95](https://github.com/creepertron95) for the [icon](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme/blob/6e4fea69f884e2e874e872b87e49892a246be65d/Papirus/48x48/apps/duolingo.svg).
-- All our [contributors](https://github.com/hmlendea/dl-desktop/graphs/contributors)!
+## 🙏 Acknowledgements
 
-_The name Duolingo and the Duolingo logo are copyrights of Duolingo._
+- Duolingo, for the language-learning platform this application wraps.
+- [creepertron95](https://github.com/creepertron95) for the icon artwork used by the application.
+- All contributors who have helped maintain the project.
+
+## 🤝 Contributing
+
+Contributions are welcome. Please open an issue or pull request for fixes, improvements, packaging updates, or documentation changes.
+
+## 📄 License
+
+This project is licensed under the GNU General Public License v3.0 or later. See [LICENSE](./LICENSE) for the full text.
+
+## 💖 Supporting the Project
+
+If you find this project useful, you can support its maintenance through the donation link above.
