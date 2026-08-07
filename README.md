@@ -23,11 +23,11 @@ An unofficial Linux desktop application for Duolingo that wraps the official web
   - [Setup](#setup)
   - [Build](#build)
   - [Run](#run)
-- [Security](#security)
-- [Acknowledgements](#acknowledgements)
 - [Contributing](#contributing)
-- [License](#license)
+- [Acknowledgements](#acknowledgements)
+- [Security](#security)
 - [Supporting the Project](#supporting-the-project)
+- [License](#license)
 
 ## ✨ Capabilities
 
@@ -56,6 +56,7 @@ The application opens Duolingo directly and applies the built-in privacy filters
 ## 🖥️ System Requirements
 
 - **OS:** Linux
+- **RAM:** 2 GB
 - **Network:** An active internet connection
 - **Desktop:** A graphical desktop environment capable of running Electron applications
 
@@ -123,9 +124,16 @@ npm run build
 npm start
 ```
 
-## 🔒 Security
+## 🤝 Contributing
 
-For information on reporting security vulnerabilities, see [SECURITY.md](./SECURITY.md).
+You are welcome to submit any suggestion, feedback, or modification to this project.
+
+When doing so, please:
+- Maintain cross-platform compatibility
+- Maintain the pull requests as focused and consistent with the existing code style
+- Maintain your branch up-to-date with `master`
+- Revise the documentation when behaviour changes
+- Properly test all changes
 
 ## 🙏 Acknowledgements
 
@@ -133,14 +141,19 @@ For information on reporting security vulnerabilities, see [SECURITY.md](./SECUR
 - [creepertron95](https://github.com/creepertron95) for the icon artwork used by the application.
 - All contributors who have helped maintain the project.
 
-## 🤝 Contributing
+## 🔒 Security
 
-Contributions are welcome. Please open an issue or pull request for fixes, improvements, packaging updates, or documentation changes.
-
-## 📄 License
-
-This project is licensed under the GNU General Public License v3.0 or later. See [LICENSE](./LICENSE) for the full text.
+For information on reporting security vulnerabilities, see [SECURITY.md](./SECURITY.md).
 
 ## 💖 Supporting the Project
 
-If you find this project useful, you can support its maintenance through the donation link above.
+Discovered a problem or have a suggestion? [Open an issue](https://github.com/hmlendea/dl-desktop/issues)!
+
+If you find this project useful, consider [funding it](https://hmlendea.go.ro/funding) or starring ⭐️ it on GitHub!
+
+[![Donate](https://raw.githubusercontent.com/hmlendea/readme-assets/master/donate_generic.png)](https://hmlendea.go.ro/funding)
+
+## 📄 License
+
+This project is being distributed under the GNU General Public License v3.0 or later.
+See [LICENSE](./LICENSE) for further information.
