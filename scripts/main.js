@@ -59,7 +59,7 @@ function createWindow() {
         icon: path.join("icon.png"),
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
-            contextIsolation: false,
+            contextIsolation: true,
             webviewTag: true,
         },
     });
