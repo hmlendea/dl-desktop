@@ -1,4 +1,4 @@
-const { app, BrowserWindow, session } = require("electron");
+const { app, BrowserWindow, dialog, session } = require("electron");
 const path = require("path");
 const fs = require("fs");
 const allowedNavigationOrigins = new Set([
@@ -6,6 +6,7 @@ const allowedNavigationOrigins = new Set([
     "https://www.duolingo.com",
     "https://auth.duolingo.com",
 ]);
+const microphoneConsents = new WeakMap();
 
 // Tracking and ad domains to block
 const blockedHosts = [
@@ -118,6 +119,122 @@ function installPrivacyHooks() {
     });
 }
 
+function getAllowedPermissionOrigin(webContents, requestingUrl, securityOrigin, isMainFrame) {
+    if (!webContents || !isMainFrame) {
+        return null;
+    }
+
+    try {
+        const requestingOrigin = new URL(requestingUrl).origin;
+        const currentOrigin = new URL(webContents.getURL()).origin;
+        if (
+            !allowedNavigationOrigins.has(requestingOrigin) ||
+            requestingOrigin !== currentOrigin ||
+            (securityOrigin && new URL(securityOrigin).origin !== requestingOrigin)
+        ) {
+            return null;
+        }
+
+        return requestingOrigin;
+    } catch {
+        return null;
+    }
+}
+
+function hasMicrophoneConsent(webContents, origin) {
+    return microphoneConsents.get(webContents)?.has(origin) === true;
+}
+
+function rememberMicrophoneConsent(webContents, origin) {
+    let consentedOrigins = microphoneConsents.get(webContents);
+    if (!consentedOrigins) {
+        consentedOrigins = new Set();
+        microphoneConsents.set(webContents, consentedOrigins);
+    }
+
+    consentedOrigins.add(origin);
+}
+
+function installPermissionHandlers() {
+    const defaultSession = session.defaultSession;
+
+    defaultSession.setPermissionCheckHandler((webContents, permission, requestingOrigin, details) => {
+        if (permission !== "media" || details.mediaType !== "audio") {
+            return false;
+        }
+
+        const origin = getAllowedPermissionOrigin(
+            webContents,
+            requestingOrigin,
+            details.securityOrigin,
+            details.isMainFrame
+        );
+        if (!origin) {
+            return false;
+        }
+
+        if (
+            details.requestingUrl &&
+            getAllowedPermissionOrigin(
+                webContents,
+                details.requestingUrl,
+                details.securityOrigin,
+                details.isMainFrame
+            ) !== origin
+        ) {
+            return false;
+        }
+
+        return hasMicrophoneConsent(webContents, origin);
+    });
+
+    defaultSession.setPermissionRequestHandler(async (webContents, permission, callback, details) => {
+        const isAudioOnlyRequest =
+            permission === "media" &&
+            Array.isArray(details.mediaTypes) &&
+            details.mediaTypes.length === 1 &&
+            details.mediaTypes[0] === "audio";
+        const origin = getAllowedPermissionOrigin(
+            webContents,
+            details.requestingUrl,
+            details.securityOrigin,
+            details.isMainFrame
+        );
+        if (!isAudioOnlyRequest || !origin) {
+            callback(false);
+            return;
+        }
+
+        if (hasMicrophoneConsent(webContents, origin)) {
+            callback(true);
+            return;
+        }
+
+        try {
+            const messageBoxOptions = {
+                type: "question",
+                title: "Microphone access",
+                message: `Allow ${origin} to use the microphone for speaking exercises?`,
+                buttons: ["Allow", "Deny"],
+                defaultId: 1,
+                cancelId: 1,
+            };
+            const parentWindow = BrowserWindow.fromWebContents(webContents);
+            const result = parentWindow
+                ? await dialog.showMessageBox(parentWindow, messageBoxOptions)
+                : await dialog.showMessageBox(messageBoxOptions);
+            const isGranted = result.response === 0;
+            if (isGranted) {
+                rememberMicrophoneConsent(webContents, origin);
+            }
+
+            callback(isGranted);
+        } catch {
+            callback(false);
+        }
+    });
+}
+
 function isAllowedNavigation(url) {
     try {
         const parsedUrl = new URL(url);
@@ -158,6 +275,7 @@ function createWindow() {
 
 app.whenReady().then(() => {
     installPrivacyHooks();
+    installPermissionHandlers();
     createWindow();
 
     app.on("activate", function () {

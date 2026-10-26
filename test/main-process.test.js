@@ -4,11 +4,13 @@ const path = require("node:path");
 const test = require("node:test");
 const vm = require("node:vm");
 
-function loadMainProcess() {
+function loadMainProcess(permissionPromptResponse = 0) {
     const appHandlers = new Map();
     const windows = [];
     const requestHandlers = {};
     const handlerRegistrations = { beforeRequest: 0, beforeSendHeaders: 0 };
+    const permissionHandlers = {};
+    const permissionPrompts = [];
     const lifecycle = [];
     let readyCallback;
     let quitRequested = false;
@@ -34,6 +36,9 @@ function loadMainProcess() {
             this.options = options;
             this.webContents = {
                 handlers: new Map(),
+                getURL() {
+                    return this.window.loadedURL ?? "";
+                },
                 on(eventName, callback) {
                     this.handlers.set(eventName, callback);
                 },
@@ -41,6 +46,7 @@ function loadMainProcess() {
                     this.windowOpenHandler = callback;
                 },
             };
+            this.webContents.window = this;
             this.loadURL = (url) => {
                 this.loadedURL = url;
                 lifecycle.push("loadURL");
@@ -52,12 +58,22 @@ function loadMainProcess() {
             return windows;
         }
 
+        static fromWebContents(webContents) {
+            return webContents.window;
+        }
+
         setMenu() {}
     }
 
     const electron = {
         app,
         BrowserWindow,
+        dialog: {
+            showMessageBox(...argumentsList) {
+                permissionPrompts.push(argumentsList);
+                return Promise.resolve({ response: permissionPromptResponse });
+            },
+        },
         session: {
             defaultSession: {
                 webRequest: {
@@ -71,6 +87,14 @@ function loadMainProcess() {
                         handlerRegistrations.beforeSendHeaders += 1;
                         lifecycle.push("beforeSendHeaders");
                     },
+                },
+                setPermissionCheckHandler(callback) {
+                    permissionHandlers.check = callback;
+                    lifecycle.push("permissionCheck");
+                },
+                setPermissionRequestHandler(callback) {
+                    permissionHandlers.request = callback;
+                    lifecycle.push("permissionRequest");
                 },
             },
         },
@@ -91,6 +115,8 @@ function loadMainProcess() {
         appHandlers,
         handlerRegistrations,
         lifecycle,
+        permissionHandlers,
+        permissionPrompts,
         readyCallback: () => readyCallback(),
         requestHandlers,
         quitRequested: () => quitRequested,
@@ -155,6 +181,185 @@ test("main process blocks unapproved redirects and denies new windows", () => {
     );
     assert.equal(unapprovedRedirectPrevented, true);
     assert.equal(webContents.windowOpenHandler({ url: "https://example.com" }).action, "deny");
+});
+
+test("main process prompts before granting microphone access to an approved main frame", async () => {
+    const { lifecycle, permissionHandlers, permissionPrompts, readyCallback, windows } = loadMainProcess();
+    readyCallback();
+
+    assert.ok(lifecycle.indexOf("permissionCheck") < lifecycle.indexOf("loadURL"));
+    assert.ok(lifecycle.indexOf("permissionRequest") < lifecycle.indexOf("loadURL"));
+
+    const webContents = windows[0].webContents;
+    let permissionGranted;
+    await permissionHandlers.request(
+        webContents,
+        "media",
+        (granted) => {
+            permissionGranted = granted;
+        },
+        {
+            isMainFrame: true,
+            mediaTypes: ["audio"],
+            requestingUrl: "https://duolingo.com/learn/speaking",
+            securityOrigin: "https://duolingo.com",
+        }
+    );
+
+    assert.equal(permissionGranted, true);
+    assert.equal(permissionPrompts.length, 1);
+    assert.equal(permissionPrompts[0][0], windows[0]);
+    assert.deepEqual(Array.from(permissionPrompts[0][1].buttons), ["Allow", "Deny"]);
+    assert.equal(
+        permissionHandlers.check(webContents, "media", "https://duolingo.com", {
+            isMainFrame: true,
+            mediaType: "audio",
+            requestingUrl: "https://duolingo.com/learn/speaking",
+            securityOrigin: "https://duolingo.com",
+        }),
+        true
+    );
+
+    let repeatedPermissionGranted;
+    await permissionHandlers.request(
+        webContents,
+        "media",
+        (granted) => {
+            repeatedPermissionGranted = granted;
+        },
+        {
+            isMainFrame: true,
+            mediaTypes: ["audio"],
+            requestingUrl: "https://duolingo.com/learn/speaking",
+            securityOrigin: "https://duolingo.com",
+        }
+    );
+    assert.equal(repeatedPermissionGranted, true);
+    assert.equal(permissionPrompts.length, 1);
+});
+
+test("main process denies microphone requests unless they are audio-only, trusted, and top-level", async () => {
+    const { permissionHandlers, permissionPrompts, readyCallback, windows } = loadMainProcess(1);
+    readyCallback();
+
+    const webContents = windows[0].webContents;
+    const requestCases = [
+        { permission: "notifications", mediaTypes: ["audio"], isMainFrame: true, url: "https://duolingo.com/learn" },
+        { permission: "media", mediaTypes: ["video"], isMainFrame: true, url: "https://duolingo.com/learn" },
+        { permission: "media", mediaTypes: ["audio", "video"], isMainFrame: true, url: "https://duolingo.com/learn" },
+        { permission: "media", mediaTypes: ["audio"], isMainFrame: false, url: "https://duolingo.com/learn" },
+        { permission: "media", mediaTypes: ["audio"], isMainFrame: true, url: "https://duolingo.com.evil.example/learn" },
+        { permission: "media", mediaTypes: ["audio"], isMainFrame: true, url: "https://auth.duolingo.com/learn" },
+    ];
+
+    for (const requestCase of requestCases) {
+        let permissionGranted;
+        await permissionHandlers.request(
+            webContents,
+            requestCase.permission,
+            (granted) => {
+                permissionGranted = granted;
+            },
+            {
+                isMainFrame: requestCase.isMainFrame,
+                mediaTypes: requestCase.mediaTypes,
+                requestingUrl: requestCase.url,
+                securityOrigin: new URL(requestCase.url).origin,
+            }
+        );
+        assert.equal(permissionGranted, false, requestCase.url);
+    }
+
+    assert.equal(permissionPrompts.length, 0);
+    assert.equal(
+        permissionHandlers.check(webContents, "media", "https://duolingo.com", {
+            isMainFrame: true,
+            mediaType: "audio",
+            requestingUrl: "https://duolingo.com/learn",
+            securityOrigin: "https://duolingo.com",
+        }),
+        false
+    );
+    assert.equal(
+        permissionHandlers.check(webContents, "notifications", "https://duolingo.com", {
+            isMainFrame: true,
+            mediaType: "audio",
+            securityOrigin: "https://duolingo.com",
+        }),
+        false
+    );
+    assert.equal(
+        permissionHandlers.check(webContents, "media", "https://duolingo.com", {
+            isMainFrame: false,
+            mediaType: "audio",
+            securityOrigin: "https://duolingo.com",
+        }),
+        false
+    );
+    assert.equal(
+        permissionHandlers.check(webContents, "media", "https://duolingo.com", {
+            isMainFrame: true,
+            mediaType: "video",
+            securityOrigin: "https://duolingo.com",
+        }),
+        false
+    );
+    assert.equal(
+        permissionHandlers.check(webContents, "media", "https://duolingo.com", {
+            isMainFrame: true,
+            mediaType: "audio",
+            requestingUrl: "not a URL",
+            securityOrigin: "https://duolingo.com",
+        }),
+        false
+    );
+});
+
+test("main process denies microphone access when the user rejects the prompt or origins disagree", async () => {
+    const { permissionHandlers, permissionPrompts, readyCallback, windows } = loadMainProcess(1);
+    readyCallback();
+
+    const webContents = windows[0].webContents;
+    let permissionGranted;
+    await permissionHandlers.request(
+        webContents,
+        "media",
+        (granted) => {
+            permissionGranted = granted;
+        },
+        {
+            isMainFrame: true,
+            mediaTypes: ["audio"],
+            requestingUrl: "https://duolingo.com/learn/speaking",
+            securityOrigin: "https://www.duolingo.com",
+        }
+    );
+    assert.equal(permissionGranted, false);
+    assert.equal(permissionPrompts.length, 0);
+
+    await permissionHandlers.request(
+        webContents,
+        "media",
+        (granted) => {
+            permissionGranted = granted;
+        },
+        {
+            isMainFrame: true,
+            mediaTypes: ["audio"],
+            requestingUrl: "https://duolingo.com/learn/speaking",
+            securityOrigin: "https://duolingo.com",
+        }
+    );
+    assert.equal(permissionGranted, false);
+    assert.equal(permissionPrompts.length, 1);
+    assert.equal(
+        permissionHandlers.check(webContents, "media", "https://duolingo.com", {
+            isMainFrame: true,
+            mediaType: "audio",
+            securityOrigin: "https://duolingo.com",
+        }),
+        false
+    );
 });
 
 test("main process installs request filters and privacy headers", () => {
