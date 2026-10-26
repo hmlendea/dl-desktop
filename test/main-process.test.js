@@ -4,7 +4,7 @@ const path = require("node:path");
 const test = require("node:test");
 const vm = require("node:vm");
 
-function loadMainProcess(permissionPromptResponse = 0) {
+function loadMainProcess(permissionPromptResponse = 0, isPackaged = false) {
     const appHandlers = new Map();
     const windows = [];
     const requestHandlers = {};
@@ -16,6 +16,7 @@ function loadMainProcess(permissionPromptResponse = 0) {
     let quitRequested = false;
 
     const app = {
+        isPackaged,
         whenReady() {
             return {
                 then(callback) {
@@ -101,10 +102,13 @@ function loadMainProcess(permissionPromptResponse = 0) {
     };
     const mainDirectory = path.join(__dirname, "..", "scripts");
     const source = fs.readFileSync(path.join(mainDirectory, "main.js"), "utf8");
+    const mainProcess = Object.assign(Object.create(process), {
+        resourcesPath: "/packaged/resources",
+    });
 
     vm.runInNewContext(source, {
         __dirname: mainDirectory,
-        process,
+        process: mainProcess,
         URL,
         require(moduleName) {
             return moduleName === "electron" ? electron : require(moduleName);
@@ -134,7 +138,23 @@ test("main process creates its window after readiness with isolated content", ()
     assert.equal(windows[0].options.webPreferences.contextIsolation, true);
     assert.equal(windows[0].options.webPreferences.webviewTag, false);
     assert.equal(path.isAbsolute(windows[0].options.webPreferences.preload), true);
+    assert.equal(windows[0].options.icon, path.join(__dirname, "..", "icon.png"));
     assert.equal(windows[0].loadedURL, "https://duolingo.com");
+});
+
+test("main process resolves its packaged window icon from Electron resources", () => {
+    const { readyCallback, windows } = loadMainProcess(0, true);
+    readyCallback();
+
+    assert.equal(windows[0].options.icon, "/packaged/resources/icon.png");
+});
+
+test("build configuration includes the window icon as an application resource", () => {
+    const packageConfiguration = JSON.parse(
+        fs.readFileSync(path.join(__dirname, "..", "package.json"), "utf8")
+    );
+
+    assert.ok(packageConfiguration.build.extraResources.includes("icon.png"));
 });
 
 test("main process allows only approved HTTPS navigation origins", () => {
