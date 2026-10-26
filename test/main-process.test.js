@@ -1,5 +1,7 @@
 const assert = require("node:assert/strict");
+const { execFileSync } = require("node:child_process");
 const fs = require("node:fs");
+const os = require("node:os");
 const path = require("node:path");
 const test = require("node:test");
 const vm = require("node:vm");
@@ -155,6 +157,59 @@ test("build configuration includes the window icon as an application resource", 
     );
 
     assert.ok(packageConfiguration.build.extraResources.includes("icon.png"));
+    assert.ok(packageConfiguration.build.extraFiles.includes("ro.go.hmlendea.DL-Desktop.desktop"));
+    assert.ok(packageConfiguration.build.extraFiles.includes("install-linux.sh"));
+});
+
+test("Linux installer registers the app and icon for a user path containing spaces", () => {
+    const temporaryDirectory = fs.mkdtempSync(path.join(os.tmpdir(), "dl-desktop install "));
+    const sourceDirectory = path.join(temporaryDirectory, "release archive");
+    const dataDirectory = path.join(temporaryDirectory, "user data 100% $");
+
+    try {
+        fs.mkdirSync(path.join(sourceDirectory, "resources"), { recursive: true });
+        fs.copyFileSync(path.join(__dirname, "..", "install-linux.sh"), path.join(sourceDirectory, "install-linux.sh"));
+        fs.copyFileSync(
+            path.join(__dirname, "..", "ro.go.hmlendea.DL-Desktop.desktop"),
+            path.join(sourceDirectory, "ro.go.hmlendea.DL-Desktop.desktop")
+        );
+        fs.copyFileSync(path.join(__dirname, "..", "icon.png"), path.join(sourceDirectory, "resources", "icon.png"));
+        fs.writeFileSync(path.join(sourceDirectory, "dl-desktop"), "binary");
+        fs.chmodSync(path.join(sourceDirectory, "dl-desktop"), 0o755);
+
+        execFileSync("bash", [path.join(sourceDirectory, "install-linux.sh")], {
+            env: { ...process.env, HOME: path.join(temporaryDirectory, "user home"), XDG_DATA_HOME: dataDirectory },
+        });
+
+        const installedExecutable = path.join(dataDirectory, "dl-desktop", "dl-desktop");
+        const desktopFile = path.join(
+            dataDirectory,
+            "applications",
+            "ro.go.hmlendea.DL-Desktop.desktop"
+        );
+        const installedIcon = path.join(
+            dataDirectory,
+            "icons",
+            "hicolor",
+            "512x512",
+            "apps",
+            "ro.go.hmlendea.DL-Desktop.png"
+        );
+        const expectedDesktopExecutable = installedExecutable
+            .replace(/\\/g, "\\\\")
+            .replace(/"/g, "\\\"")
+            .replace(/`/g, "\\`")
+            .replace(/\$/g, "\\$")
+            .replace(/%/g, "%%");
+
+        assert.equal(fs.readFileSync(installedExecutable, "utf8"), "binary");
+        assert.ok(
+            fs.readFileSync(desktopFile, "utf8").split("\n").includes(`Exec="${expectedDesktopExecutable}"`)
+        );
+        assert.deepEqual(fs.readFileSync(installedIcon), fs.readFileSync(path.join(__dirname, "..", "icon.png")));
+    } finally {
+        fs.rmSync(temporaryDirectory, { recursive: true, force: true });
+    }
 });
 
 test("main process allows only approved HTTPS navigation origins", () => {

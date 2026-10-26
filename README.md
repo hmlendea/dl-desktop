@@ -97,7 +97,13 @@ yay -S duolingo-desktop-bin
 
 ### Manual Installation
 
-Download the latest GitHub release, extract it, and run the packaged binary on a supported Linux system.
+Download and extract the Linux ZIP archive from the latest GitHub release. From the extracted application directory, run:
+
+```bash
+bash ./install-linux.sh
+```
+
+The installer copies the application to `$XDG_DATA_HOME/dl-desktop` (default: `~/.local/share/dl-desktop`) and registers its desktop entry and icon under `$XDG_DATA_HOME`. Launch the application from your desktop menu.
 
 ## 🛠️ Development
 

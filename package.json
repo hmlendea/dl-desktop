@@ -19,7 +19,8 @@
       "artifactName": "${name}_${version}_linux.${ext}"
     },
     "extraFiles": [
-      "ro.go.hmlendea.DL-Desktop.desktop"
+      "ro.go.hmlendea.DL-Desktop.desktop",
+      "install-linux.sh"
     ],
     "extraResources": [
       "icon.png"
