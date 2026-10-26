@@ -32,7 +32,15 @@ function loadMainProcess() {
     class BrowserWindow {
         constructor(options) {
             this.options = options;
-            this.webContents = {};
+            this.webContents = {
+                handlers: new Map(),
+                on(eventName, callback) {
+                    this.handlers.set(eventName, callback);
+                },
+                setWindowOpenHandler(callback) {
+                    this.windowOpenHandler = callback;
+                },
+            };
             this.loadURL = (url) => {
                 this.loadedURL = url;
                 lifecycle.push("loadURL");
@@ -98,8 +106,55 @@ test("main process creates its window after readiness with isolated content", ()
 
     assert.equal(windows.length, 1);
     assert.equal(windows[0].options.webPreferences.contextIsolation, true);
+    assert.equal(windows[0].options.webPreferences.webviewTag, false);
     assert.equal(path.isAbsolute(windows[0].options.webPreferences.preload), true);
     assert.equal(windows[0].loadedURL, "https://duolingo.com");
+});
+
+test("main process allows only approved HTTPS navigation origins", () => {
+    const { readyCallback, windows } = loadMainProcess();
+    readyCallback();
+
+    const navigationHandler = windows[0].webContents.handlers.get("will-navigate");
+    const navigationCases = [
+        { url: "https://duolingo.com/learn", blocked: false },
+        { url: "https://www.duolingo.com/learn", blocked: false },
+        { url: "https://auth.duolingo.com/login", blocked: false },
+        { url: "https://duolingo.com.evil.example/learn", blocked: true },
+        { url: "https://evil-duolingo.com/learn", blocked: true },
+        { url: "http://duolingo.com/learn", blocked: true },
+        { url: "javascript:alert(1)", blocked: true },
+        { url: "file:///etc/passwd", blocked: true },
+        { url: "not a URL", blocked: true },
+    ];
+
+    for (const navigationCase of navigationCases) {
+        let prevented = false;
+        navigationHandler({ preventDefault() { prevented = true; } }, navigationCase.url);
+        assert.equal(prevented, navigationCase.blocked, navigationCase.url);
+    }
+});
+
+test("main process blocks unapproved redirects and denies new windows", () => {
+    const { readyCallback, windows } = loadMainProcess();
+    readyCallback();
+
+    const webContents = windows[0].webContents;
+    const redirectHandler = webContents.handlers.get("will-redirect");
+    let approvedRedirectPrevented = false;
+    redirectHandler(
+        { preventDefault() { approvedRedirectPrevented = true; } },
+        "https://www.duolingo.com/learn"
+    );
+    assert.equal(approvedRedirectPrevented, false);
+
+    let unapprovedRedirectPrevented = false;
+    redirectHandler(
+        { preventDefault() { unapprovedRedirectPrevented = true; } },
+        "https://accounts.example/login"
+    );
+    assert.equal(unapprovedRedirectPrevented, true);
+    assert.equal(webContents.windowOpenHandler({ url: "https://example.com" }).action, "deny");
 });
 
 test("main process installs request filters and privacy headers", () => {

@@ -1,6 +1,11 @@
 const { app, BrowserWindow, session } = require("electron");
 const path = require("path");
 const fs = require("fs");
+const allowedNavigationOrigins = new Set([
+    "https://duolingo.com",
+    "https://www.duolingo.com",
+    "https://auth.duolingo.com",
+]);
 
 // Tracking and ad domains to block
 const blockedHosts = [
@@ -113,6 +118,15 @@ function installPrivacyHooks() {
     });
 }
 
+function isAllowedNavigation(url) {
+    try {
+        const parsedUrl = new URL(url);
+        return allowedNavigationOrigins.has(parsedUrl.origin);
+    } catch {
+        return false;
+    }
+}
+
 function createWindow() {
     const mainWindow = new BrowserWindow({
         width: 1280,
@@ -121,9 +135,21 @@ function createWindow() {
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
             contextIsolation: true,
-            webviewTag: true,
+            webviewTag: false,
         },
     });
+
+    mainWindow.webContents.on("will-navigate", (event, url) => {
+        if (!isAllowedNavigation(url)) {
+            event.preventDefault();
+        }
+    });
+    mainWindow.webContents.on("will-redirect", (event, url) => {
+        if (!isAllowedNavigation(url)) {
+            event.preventDefault();
+        }
+    });
+    mainWindow.webContents.setWindowOpenHandler(() => ({ action: "deny" }));
 
     mainWindow.webContents.userAgent =
         "Mozilla/5.0 (X11; Linux x86_64; rv:123.0) Gecko/20100101 Firefox/123.0";
