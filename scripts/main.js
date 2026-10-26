@@ -3,7 +3,7 @@ const path = require("path");
 const fs = require("fs");
 
 // Tracking and ad domains to block
-const blockedDomains = [
+const blockedHosts = [
     // Ads
     "doubleclick.net",
     "googleadservices.com",
@@ -30,7 +30,6 @@ const blockedDomains = [
     "bugsnag.com",
     "sentry-cdn.com",
     // Tracking pixels
-    "facebook.com/tr/",
     "connect.facebook.net",
     "ads.twitter.com",
     "analytics.tiktok.com",
@@ -41,6 +40,10 @@ const blockedDomains = [
     "adjust.com",
     "appsflyer.com",
     "branchmetrics.io",
+];
+
+const blockedPaths = [
+    { host: "facebook.com", pathnamePrefix: "/tr/" },
 ];
 
 // Tracking query parameters to strip from URLs
@@ -70,27 +73,40 @@ function createWindow() {
 
     // Block trackers and ads
     session.defaultSession.webRequest.onBeforeRequest((details, callback) => {
-        const url = details.url.toLowerCase();
-        if (blockedDomains.some((domain) => url.includes(domain))) {
+        let parsedUrl;
+        try {
+            parsedUrl = new URL(details.url);
+        } catch {
+            callback({ cancel: false });
+            return;
+        }
+
+        const hostname = parsedUrl.hostname.toLowerCase();
+        const isBlockedHost = blockedHosts.some(
+            (host) => hostname === host || hostname.endsWith(`.${host}`)
+        );
+        const isBlockedPath = blockedPaths.some(
+            (rule) =>
+                (hostname === rule.host || hostname.endsWith(`.${rule.host}`)) &&
+                parsedUrl.pathname.startsWith(rule.pathnamePrefix)
+        );
+        if (isBlockedHost || isBlockedPath) {
             callback({ cancel: true });
             return;
         }
 
         // Strip tracking query parameters
-        try {
-            const parsed = new URL(details.url);
-            let stripped = false;
-            for (const param of trackingParams) {
-                if (parsed.searchParams.has(param)) {
-                    parsed.searchParams.delete(param);
-                    stripped = true;
-                }
+        let stripped = false;
+        for (const param of trackingParams) {
+            if (parsedUrl.searchParams.has(param)) {
+                parsedUrl.searchParams.delete(param);
+                stripped = true;
             }
-            if (stripped) {
-                callback({ redirectURL: parsed.toString() });
-                return;
-            }
-        } catch (_) {}
+        }
+        if (stripped) {
+            callback({ redirectURL: parsedUrl.toString() });
+            return;
+        }
 
         callback({ cancel: false });
     });

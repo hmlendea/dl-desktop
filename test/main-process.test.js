@@ -66,6 +66,7 @@ function loadMainProcess() {
     vm.runInNewContext(source, {
         __dirname: mainDirectory,
         process,
+        URL,
         require(moduleName) {
             return moduleName === "electron" ? electron : require(moduleName);
         },
@@ -114,6 +115,38 @@ test("main process installs request filters and privacy headers", () => {
     );
     assert.equal(headerResult.requestHeaders.DNT, "1");
     assert.equal(headerResult.requestHeaders["Sec-GPC"], "1");
+});
+
+test("main process blocks tracker hosts and Facebook tracking paths structurally", () => {
+    const { readyCallback, requestHandlers } = loadMainProcess();
+    readyCallback();
+
+    const requestCases = [
+        { url: "https://google-analytics.com/collect", blocked: true },
+        { url: "https://www.google-analytics.com/collect", blocked: true },
+        { url: "https://notgoogle-analytics.com/lesson", blocked: false },
+        {
+            url: "https://www.duolingo.com/learn?next=google-analytics.com",
+            blocked: false,
+        },
+        { url: "https://facebook.com/tr/?id=123", blocked: true },
+        { url: "https://www.facebook.com/tr/?id=123", blocked: true },
+        { url: "https://facebook.com/profile", blocked: false },
+        { url: "https://facebook.com/training", blocked: false },
+    ];
+
+    for (const requestCase of requestCases) {
+        let requestResult;
+        requestHandlers.beforeRequest({ url: requestCase.url }, (result) => {
+            requestResult = result;
+        });
+
+        assert.equal(
+            requestResult.cancel,
+            requestCase.blocked,
+            `Unexpected tracker decision for ${requestCase.url}`
+        );
+    }
 });
 
 test("main process quits after all windows close outside macOS", () => {
