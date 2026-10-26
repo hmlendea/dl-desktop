@@ -167,19 +167,21 @@ test("main process blocks unapproved redirects and denies new windows", () => {
 
     const webContents = windows[0].webContents;
     const redirectHandler = webContents.handlers.get("will-redirect");
-    let approvedRedirectPrevented = false;
-    redirectHandler(
-        { preventDefault() { approvedRedirectPrevented = true; } },
-        "https://www.duolingo.com/learn"
-    );
-    assert.equal(approvedRedirectPrevented, false);
+    const redirectCases = [
+        { url: "https://www.duolingo.com/learn", blocked: false },
+        { url: "https://auth.duolingo.com/login", blocked: false },
+        { url: "https://duolingo.com.evil.example/learn", blocked: true },
+        { url: "https://accounts.example/login", blocked: true },
+        { url: "javascript:alert(1)", blocked: true },
+        { url: "file:///etc/passwd", blocked: true },
+    ];
 
-    let unapprovedRedirectPrevented = false;
-    redirectHandler(
-        { preventDefault() { unapprovedRedirectPrevented = true; } },
-        "https://accounts.example/login"
-    );
-    assert.equal(unapprovedRedirectPrevented, true);
+    for (const redirectCase of redirectCases) {
+        let prevented = false;
+        redirectHandler({ preventDefault() { prevented = true; } }, redirectCase.url);
+        assert.equal(prevented, redirectCase.blocked, redirectCase.url);
+    }
+
     assert.equal(webContents.windowOpenHandler({ url: "https://example.com" }).action, "deny");
 });
 
