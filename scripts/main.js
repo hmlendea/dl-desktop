@@ -52,8 +52,9 @@ const trackingParams = [
     "fbclid", "gclid", "gclsrc", "dclid", "msclkid",
     "mc_eid", "mc_cid",
     "_branch_match_id", "_branch_referrer",
-    "ref", "referrer",
 ];
+const safeRedirectMethods = new Set(["GET", "HEAD"]);
+const redirectableProtocols = new Set(["http:", "https:"]);
 
 function createWindow() {
     const mainWindow = new BrowserWindow({
@@ -92,6 +93,14 @@ function createWindow() {
         );
         if (isBlockedHost || isBlockedPath) {
             callback({ cancel: true });
+            return;
+        }
+
+        if (
+            !safeRedirectMethods.has(details.method) ||
+            !redirectableProtocols.has(parsedUrl.protocol)
+        ) {
+            callback({ cancel: false });
             return;
         }
 

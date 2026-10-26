@@ -149,6 +149,65 @@ test("main process blocks tracker hosts and Facebook tracking paths structurally
     }
 });
 
+test("main process strips only tracking parameters from safe HTTP requests", () => {
+    const { readyCallback, requestHandlers } = loadMainProcess();
+    readyCallback();
+
+    const requestCases = [
+        {
+            method: "GET",
+            url: "https://duolingo.com/learn?utm_source=mail&utm_source=app&next=lesson#exercise",
+            redirectURL: "https://duolingo.com/learn?next=lesson#exercise",
+        },
+        {
+            method: "HEAD",
+            url: "https://duolingo.com/learn?gclid=123",
+            redirectURL: "https://duolingo.com/learn",
+        },
+        {
+            method: "GET",
+            url: "https://duolingo.com/learn?ref=lesson&referrer=course",
+        },
+        { method: "GET", url: "https://duolingo.com/learn?next=lesson" },
+        {
+            method: "POST",
+            url: "https://duolingo.com/submit?utm_source=mail",
+        },
+        {
+            method: "PUT",
+            url: "https://duolingo.com/profile?fbclid=123",
+        },
+        {
+            method: "GET",
+            url: "duolingo://learn?utm_source=mail",
+        },
+    ];
+
+    for (const requestCase of requestCases) {
+        let requestResult;
+        requestHandlers.beforeRequest(requestCase, (result) => {
+            requestResult = result;
+        });
+
+        if (requestCase.redirectURL) {
+            assert.equal(requestResult.redirectURL, requestCase.redirectURL);
+
+            let repeatedResult;
+            requestHandlers.beforeRequest(
+                { method: requestCase.method, url: requestResult.redirectURL },
+                (result) => {
+                    repeatedResult = result;
+                }
+            );
+            assert.equal(repeatedResult.cancel, false);
+            assert.equal(repeatedResult.redirectURL, undefined);
+        } else {
+            assert.equal(requestResult.cancel, false);
+            assert.equal(requestResult.redirectURL, undefined);
+        }
+    }
+});
+
 test("main process quits after all windows close outside macOS", () => {
     const { appHandlers, quitRequested } = loadMainProcess();
 
