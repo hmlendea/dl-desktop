@@ -35,6 +35,7 @@ function loadMainProcess(permissionPromptResponse = 0) {
         constructor(options) {
             this.options = options;
             this.webContents = {
+                userAgent: "Electron default user agent",
                 handlers: new Map(),
                 getURL() {
                     return this.window.loadedURL ?? "";
@@ -133,6 +134,7 @@ test("main process creates its window after readiness with isolated content", ()
     assert.equal(windows.length, 1);
     assert.equal(windows[0].options.webPreferences.contextIsolation, true);
     assert.equal(windows[0].options.webPreferences.webviewTag, false);
+    assert.equal(windows[0].webContents.userAgent, "Electron default user agent");
     assert.equal(path.isAbsolute(windows[0].options.webPreferences.preload), true);
     assert.equal(windows[0].loadedURL, "https://duolingo.com");
 });
