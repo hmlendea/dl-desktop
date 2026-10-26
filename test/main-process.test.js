@@ -12,6 +12,8 @@ function loadMainProcess(permissionPromptResponse = 0) {
     const permissionHandlers = {};
     const permissionPrompts = [];
     const lifecycle = [];
+    const loadUrlResults = [];
+    const loadedUrls = [];
     let readyCallback;
     let quitRequested = false;
 
@@ -35,6 +37,7 @@ function loadMainProcess(permissionPromptResponse = 0) {
         constructor(options) {
             this.options = options;
             this.webContents = {
+                userAgent: "Electron default user agent",
                 handlers: new Map(),
                 getURL() {
                     return this.window.loadedURL ?? "";
@@ -49,8 +52,11 @@ function loadMainProcess(permissionPromptResponse = 0) {
             this.webContents.window = this;
             this.loadURL = (url) => {
                 this.loadedURL = url;
+                loadedUrls.push(url);
                 lifecycle.push("loadURL");
+                return loadUrlResults.shift() ?? Promise.resolve();
             };
+            this.isDestroyed = () => false;
             windows.push(this);
         }
 
@@ -115,6 +121,8 @@ function loadMainProcess(permissionPromptResponse = 0) {
         appHandlers,
         handlerRegistrations,
         lifecycle,
+        loadUrlResults,
+        loadedUrls,
         permissionHandlers,
         permissionPrompts,
         readyCallback: () => readyCallback(),
@@ -133,8 +141,60 @@ test("main process creates its window after readiness with isolated content", ()
     assert.equal(windows.length, 1);
     assert.equal(windows[0].options.webPreferences.contextIsolation, true);
     assert.equal(windows[0].options.webPreferences.webviewTag, false);
+    assert.equal(windows[0].webContents.userAgent, "Electron default user agent");
     assert.equal(path.isAbsolute(windows[0].options.webPreferences.preload), true);
     assert.equal(windows[0].loadedURL, "https://duolingo.com");
+});
+
+test("main process presents a retry page only for main-frame load failures", () => {
+    const { readyCallback, loadedUrls, windows } = loadMainProcess();
+    readyCallback();
+
+    const webContents = windows[0].webContents;
+    const failedLoadHandler = webContents.handlers.get("did-fail-load");
+    failedLoadHandler({}, -105, "ERR_NAME_NOT_RESOLVED", "https://private.example/path", false);
+    failedLoadHandler({}, -3, "ERR_ABORTED", "https://duolingo.com/learn", true);
+    assert.equal(loadedUrls.length, 1);
+
+    failedLoadHandler({}, -105, "ERR_NAME_NOT_RESOLVED", "https://private.example/path", true);
+    assert.equal(loadedUrls.length, 2);
+    assert.equal(windows.length, 1);
+
+    const errorPage = decodeURIComponent(loadedUrls[1]);
+    assert.match(errorPage, /Check your internet connection, then try again\./);
+    assert.match(errorPage, /href="https:\/\/duolingo\.com"/);
+    assert.doesNotMatch(errorPage, /private\.example/);
+
+    let navigationPrevented = false;
+    webContents.handlers.get("will-navigate")(
+        { preventDefault() { navigationPrevented = true; } },
+        "https://duolingo.com"
+    );
+    assert.equal(navigationPrevented, false);
+});
+
+test("main process recovers from a rejected initial load", async () => {
+    const { loadUrlResults, loadedUrls, readyCallback, windows } = loadMainProcess();
+    loadUrlResults.push(Promise.reject(new Error("network unavailable")));
+    readyCallback();
+    await new Promise((resolve) => setImmediate(resolve));
+
+    assert.equal(loadedUrls.length, 2);
+    assert.match(decodeURIComponent(loadedUrls[1]), /Unable to load DL Desktop/);
+    assert.equal(windows.length, 1);
+});
+
+test("main process presents one retry page after renderer termination", () => {
+    const { loadedUrls, readyCallback, windows } = loadMainProcess();
+    readyCallback();
+
+    windows[0].webContents.handlers.get("render-process-gone")();
+    assert.equal(loadedUrls.length, 2);
+    assert.match(decodeURIComponent(loadedUrls[1]), /Unable to load DL Desktop/);
+
+    windows[0].webContents.handlers.get("render-process-gone")();
+    assert.equal(loadedUrls.length, 2);
+    assert.equal(windows.length, 1);
 });
 
 test("main process allows only approved HTTPS navigation origins", () => {
