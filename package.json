@@ -1,6 +1,5 @@
 {
   "name": "dl-desktop",
-  "appId": "ro.go.hmlendea.DL-Desktop",
   "productName": "DL: language lessons",
   "version": "4.3.1",
   "description": "An unofficial desktop client for Duolingo",
@@ -11,6 +10,7 @@
     "test": "node --test"
   },
   "build": {
+    "appId": "ro.go.hmlendea.DL-Desktop",
     "linux": {
       "target": [
         "zip"
@@ -19,7 +19,11 @@
       "artifactName": "${name}_${version}_linux.${ext}"
     },
     "extraFiles": [
-      "ro.go.hmlendea.DL-Desktop.desktop"
+      "ro.go.hmlendea.DL-Desktop.desktop",
+      "install-linux.sh"
+    ],
+    "extraResources": [
+      "icon.png"
     ]
   },
   "repository": {
