@@ -3,7 +3,7 @@ const path = require("path");
 const fs = require("fs");
 
 // Tracking and ad domains to block
-const blockedDomains = [
+const blockedHosts = [
     // Ads
     "doubleclick.net",
     "googleadservices.com",
@@ -30,7 +30,6 @@ const blockedDomains = [
     "bugsnag.com",
     "sentry-cdn.com",
     // Tracking pixels
-    "facebook.com/tr/",
     "connect.facebook.net",
     "ads.twitter.com",
     "analytics.tiktok.com",
@@ -43,14 +42,76 @@ const blockedDomains = [
     "branchmetrics.io",
 ];
 
+const blockedPaths = [
+    { host: "facebook.com", pathnamePrefix: "/tr/" },
+];
+
 // Tracking query parameters to strip from URLs
 const trackingParams = [
     "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content",
     "fbclid", "gclid", "gclsrc", "dclid", "msclkid",
     "mc_eid", "mc_cid",
     "_branch_match_id", "_branch_referrer",
-    "ref", "referrer",
 ];
+const safeRedirectMethods = new Set(["GET", "HEAD"]);
+const redirectableProtocols = new Set(["http:", "https:"]);
+
+function installPrivacyHooks() {
+    // Block trackers and ads
+    session.defaultSession.webRequest.onBeforeRequest((details, callback) => {
+        let parsedUrl;
+        try {
+            parsedUrl = new URL(details.url);
+        } catch {
+            callback({ cancel: false });
+            return;
+        }
+
+        const hostname = parsedUrl.hostname.toLowerCase();
+        const isBlockedHost = blockedHosts.some(
+            (host) => hostname === host || hostname.endsWith(`.${host}`)
+        );
+        const isBlockedPath = blockedPaths.some(
+            (rule) =>
+                (hostname === rule.host || hostname.endsWith(`.${rule.host}`)) &&
+                parsedUrl.pathname.startsWith(rule.pathnamePrefix)
+        );
+        if (isBlockedHost || isBlockedPath) {
+            callback({ cancel: true });
+            return;
+        }
+
+        if (
+            !safeRedirectMethods.has(details.method) ||
+            !redirectableProtocols.has(parsedUrl.protocol)
+        ) {
+            callback({ cancel: false });
+            return;
+        }
+
+        // Strip tracking query parameters
+        let stripped = false;
+        for (const param of trackingParams) {
+            if (parsedUrl.searchParams.has(param)) {
+                parsedUrl.searchParams.delete(param);
+                stripped = true;
+            }
+        }
+        if (stripped) {
+            callback({ redirectURL: parsedUrl.toString() });
+            return;
+        }
+
+        callback({ cancel: false });
+    });
+
+    // Send Do-Not-Track and Global Privacy Control headers
+    session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
+        details.requestHeaders["DNT"] = "1";
+        details.requestHeaders["Sec-GPC"] = "1";
+        callback({ requestHeaders: details.requestHeaders });
+    });
+}
 
 function createWindow() {
     const mainWindow = new BrowserWindow({
@@ -67,43 +128,10 @@ function createWindow() {
     mainWindow.webContents.userAgent =
         "Mozilla/5.0 (X11; Linux x86_64; rv:123.0) Gecko/20100101 Firefox/123.0";
     mainWindow.loadURL("https://duolingo.com");
-
-    // Block trackers and ads
-    session.defaultSession.webRequest.onBeforeRequest((details, callback) => {
-        const url = details.url.toLowerCase();
-        if (blockedDomains.some((domain) => url.includes(domain))) {
-            callback({ cancel: true });
-            return;
-        }
-
-        // Strip tracking query parameters
-        try {
-            const parsed = new URL(details.url);
-            let stripped = false;
-            for (const param of trackingParams) {
-                if (parsed.searchParams.has(param)) {
-                    parsed.searchParams.delete(param);
-                    stripped = true;
-                }
-            }
-            if (stripped) {
-                callback({ redirectURL: parsed.toString() });
-                return;
-            }
-        } catch (_) {}
-
-        callback({ cancel: false });
-    });
-
-    // Send Do-Not-Track and Global Privacy Control headers
-    session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
-        details.requestHeaders["DNT"] = "1";
-        details.requestHeaders["Sec-GPC"] = "1";
-        callback({ requestHeaders: details.requestHeaders });
-    });
 }
 
 app.whenReady().then(() => {
+    installPrivacyHooks();
     createWindow();
 
     app.on("activate", function () {
