@@ -56,22 +56,7 @@ const trackingParams = [
 const safeRedirectMethods = new Set(["GET", "HEAD"]);
 const redirectableProtocols = new Set(["http:", "https:"]);
 
-function createWindow() {
-    const mainWindow = new BrowserWindow({
-        width: 1280,
-        height: 800,
-        icon: path.join("icon.png"),
-        webPreferences: {
-            preload: path.join(__dirname, "preload.js"),
-            contextIsolation: true,
-            webviewTag: true,
-        },
-    });
-
-    mainWindow.webContents.userAgent =
-        "Mozilla/5.0 (X11; Linux x86_64; rv:123.0) Gecko/20100101 Firefox/123.0";
-    mainWindow.loadURL("https://duolingo.com");
-
+function installPrivacyHooks() {
     // Block trackers and ads
     session.defaultSession.webRequest.onBeforeRequest((details, callback) => {
         let parsedUrl;
@@ -128,7 +113,25 @@ function createWindow() {
     });
 }
 
+function createWindow() {
+    const mainWindow = new BrowserWindow({
+        width: 1280,
+        height: 800,
+        icon: path.join("icon.png"),
+        webPreferences: {
+            preload: path.join(__dirname, "preload.js"),
+            contextIsolation: true,
+            webviewTag: true,
+        },
+    });
+
+    mainWindow.webContents.userAgent =
+        "Mozilla/5.0 (X11; Linux x86_64; rv:123.0) Gecko/20100101 Firefox/123.0";
+    mainWindow.loadURL("https://duolingo.com");
+}
+
 app.whenReady().then(() => {
+    installPrivacyHooks();
     createWindow();
 
     app.on("activate", function () {

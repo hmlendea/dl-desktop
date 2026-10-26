@@ -8,6 +8,8 @@ function loadMainProcess() {
     const appHandlers = new Map();
     const windows = [];
     const requestHandlers = {};
+    const handlerRegistrations = { beforeRequest: 0, beforeSendHeaders: 0 };
+    const lifecycle = [];
     let readyCallback;
     let quitRequested = false;
 
@@ -33,6 +35,7 @@ function loadMainProcess() {
             this.webContents = {};
             this.loadURL = (url) => {
                 this.loadedURL = url;
+                lifecycle.push("loadURL");
             };
             windows.push(this);
         }
@@ -52,9 +55,13 @@ function loadMainProcess() {
                 webRequest: {
                     onBeforeRequest(callback) {
                         requestHandlers.beforeRequest = callback;
+                        handlerRegistrations.beforeRequest += 1;
+                        lifecycle.push("beforeRequest");
                     },
                     onBeforeSendHeaders(callback) {
                         requestHandlers.beforeSendHeaders = callback;
+                        handlerRegistrations.beforeSendHeaders += 1;
+                        lifecycle.push("beforeSendHeaders");
                     },
                 },
             },
@@ -74,6 +81,8 @@ function loadMainProcess() {
 
     return {
         appHandlers,
+        handlerRegistrations,
+        lifecycle,
         readyCallback: () => readyCallback(),
         requestHandlers,
         quitRequested: () => quitRequested,
@@ -115,6 +124,40 @@ test("main process installs request filters and privacy headers", () => {
     );
     assert.equal(headerResult.requestHeaders.DNT, "1");
     assert.equal(headerResult.requestHeaders["Sec-GPC"], "1");
+});
+
+test("main process installs privacy hooks before navigation and reuses them for recreated windows", () => {
+    const { appHandlers, handlerRegistrations, lifecycle, readyCallback, requestHandlers, windows } =
+        loadMainProcess();
+
+    readyCallback();
+
+    assert.ok(lifecycle.indexOf("beforeRequest") < lifecycle.indexOf("loadURL"));
+    assert.ok(lifecycle.indexOf("beforeSendHeaders") < lifecycle.indexOf("loadURL"));
+    assert.deepEqual(handlerRegistrations, { beforeRequest: 1, beforeSendHeaders: 1 });
+
+    const assertPrivacyPolicy = () => {
+        let requestResult;
+        requestHandlers.beforeRequest({ url: "https://google-analytics.com/collect" }, (result) => {
+            requestResult = result;
+        });
+        assert.equal(requestResult.cancel, true);
+
+        let headerResult;
+        requestHandlers.beforeSendHeaders({ requestHeaders: {} }, (result) => {
+            headerResult = result;
+        });
+        assert.equal(headerResult.requestHeaders.DNT, "1");
+        assert.equal(headerResult.requestHeaders["Sec-GPC"], "1");
+    };
+
+    assertPrivacyPolicy();
+    windows.length = 0;
+    appHandlers.get("activate")();
+
+    assert.equal(windows.length, 1);
+    assert.deepEqual(handlerRegistrations, { beforeRequest: 1, beforeSendHeaders: 1 });
+    assertPrivacyPolicy();
 });
 
 test("main process blocks tracker hosts and Facebook tracking paths structurally", () => {
