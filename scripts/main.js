@@ -7,6 +7,25 @@ const allowedNavigationOrigins = new Set([
     "https://auth.duolingo.com",
 ]);
 const microphoneConsents = new WeakMap();
+const abortedLoadErrorCode = -3;
+const loadErrorPageUrl = `data:text/html;charset=utf-8,${encodeURIComponent(`
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unable to load DL Desktop</title>
+<style>
+    body { align-items: center; background: #f4f5f2; color: #20231f; display: flex; font: 16px sans-serif; justify-content: center; margin: 0; min-height: 100vh; }
+    main { max-width: 32rem; padding: 2rem; text-align: center; }
+    a { background: #58a700; border-radius: 4px; color: white; display: inline-block; margin-top: 1rem; padding: 0.75rem 1.25rem; text-decoration: none; }
+</style>
+<main>
+    <h1>Unable to load DL Desktop</h1>
+    <p>Check your internet connection, then try again.</p>
+    <a href="https://duolingo.com">Try again</a>
+</main>
+</html>
+`)}`;
 
 // Tracking and ad domains to block
 const blockedHosts = [
@@ -255,10 +274,25 @@ function createWindow() {
             webviewTag: false,
         },
     });
+    let isShowingLoadError = false;
+
+    const showLoadError = () => {
+        if (isShowingLoadError || mainWindow.isDestroyed()) {
+            return;
+        }
+
+        isShowingLoadError = true;
+        mainWindow.loadURL(loadErrorPageUrl).catch(() => {});
+    };
 
     mainWindow.webContents.on("will-navigate", (event, url) => {
         if (!isAllowedNavigation(url)) {
             event.preventDefault();
+            return;
+        }
+
+        if (isShowingLoadError) {
+            isShowingLoadError = false;
         }
     });
     mainWindow.webContents.on("will-redirect", (event, url) => {
@@ -267,8 +301,15 @@ function createWindow() {
         }
     });
     mainWindow.webContents.setWindowOpenHandler(() => ({ action: "deny" }));
+    mainWindow.webContents.on("did-fail-load", (...failureDetails) => {
+        const [, errorCode, , , isMainFrame] = failureDetails;
+        if (isMainFrame && errorCode !== abortedLoadErrorCode) {
+            showLoadError();
+        }
+    });
+    mainWindow.webContents.on("render-process-gone", showLoadError);
 
-    mainWindow.loadURL("https://duolingo.com");
+    mainWindow.loadURL("https://duolingo.com").catch(showLoadError);
 }
 
 app.whenReady().then(() => {
