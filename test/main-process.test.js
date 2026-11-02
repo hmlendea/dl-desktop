@@ -170,6 +170,14 @@ test("build configuration includes the window icon as an application resource", 
     assert.ok(packageConfiguration.build.extraFiles.includes("install-linux.sh"));
 });
 
+test("Linux build targets both supported architectures", () => {
+    const linuxTargets = JSON.parse(
+        fs.readFileSync(path.join(__dirname, "..", "package.json"), "utf8")
+    ).build.linux.target;
+
+    assert.deepEqual(linuxTargets, [{ target: "zip", arch: ["x64", "arm64"] }]);
+});
+
 test("Linux installer registers the app and icon for a user path containing spaces", () => {
     const temporaryDirectory = fs.mkdtempSync(path.join(os.tmpdir(), "dl-desktop install "));
     const sourceDirectory = path.join(temporaryDirectory, "release archive");
