@@ -13,10 +13,16 @@
     "appId": "ro.go.hmlendea.DL-Desktop",
     "linux": {
       "target": [
-        "zip"
+        {
+          "target": "zip",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
       ],
       "category": "Education",
-      "artifactName": "${name}_${version}_linux.${ext}"
+      "artifactName": "${name}_${version}_linux_${arch}.${ext}"
     },
     "extraFiles": [
       "ro.go.hmlendea.DL-Desktop.desktop",
